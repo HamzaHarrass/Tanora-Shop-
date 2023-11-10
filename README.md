@@ -15,7 +15,7 @@ Tanora Shop est bien plus qu'une simple boutique en ligne. C'est une plateforme 
 - Barre de recherche pour trouver des produits spécifiques.
 - Filtrage des produits par taille, couleur, style, etc.
 
-### Sélection et Personnalisation 🎨:
+### Sélection et Personnalisation 🛍️:
 - Interface conviviale pour choisir et personnaliser les produits.
 - Galerie d'images pour chaque produit.
 - Outil de personnalisation permettant aux utilisateurs de créer leur propre style sur les t-shirts et sweats.
@@ -25,6 +25,23 @@ Tanora Shop est bien plus qu'une simple boutique en ligne. C'est une plateforme 
 - Panier persistant pour les utilisateurs connectés.
 - Historique des commandes pour les utilisateurs.
 
-### Gestion de Compte 📋:
+### Gestion de Compte 🔄:
 - Possibilité de modifier les informations du compte.
 - Historique d'achat et suivi des commandes.
+
+## Cahier des charges pour les administrateurs 🛠️
+
+### Gestion des Produits 📦:
+- Ajout, modification et suppression de produits. ✨
+- Gestion des stocks pour assurer une disponibilité constante. 📊
+### Gestion des Commandes 📑:
+- Vue d'ensemble des commandes en cours et historique. 🕒
+- Marquage des commandes comme expédiées ou traitées. 🚚
+### Gestion des Utilisateurs 👥:
+- Liste des utilisateurs enregistrés pour un suivi efficace. 📋
+- Possibilité de suspendre ou supprimer des comptes en cas de besoin. 🚫
+### Gestion du Contenu 🖋️:
+- Modification du contenu statique du site (textes des pages, images, etc.). 🌐
+### Outils de Rapport 📊:
+- Statistiques de ventes pour évaluer la performance. 💹
+- Rapports sur les produits les plus populaires pour guider les décisions. 🏆
