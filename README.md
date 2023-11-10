@@ -45,3 +45,9 @@ Tanora Shop est bien plus qu'une simple boutique en ligne. C'est une plateforme 
 ### Outils de Rapport 📊:
 - Statistiques de ventes pour évaluer la performance. 💹
 - Rapports sur les produits les plus populaires pour guider les décisions. 🏆
+  
+***
+
+## 🚀 Développement de Logo 🎨
+<img alt="logo" width="395" src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/5e042937707793.5749908a644ab.png">
+
