@@ -1,4 +1,4 @@
-# Tanora Shop 🛍️✨
+# Tanora Shop 🛍️👕
 
 ## Overview 👀
 
