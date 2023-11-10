@@ -1,6 +1,30 @@
-# Tanora-Shop-
+# Tanora Shop 🛍️✨
 
-## Overview 
+## Overview 👀
 
 Tanora Shop est bien plus qu'une simple boutique en ligne. C'est une plateforme dynamique qui vous offre la possibilité de créer et de porter la mode qui vous ressemble. Notre engagement envers l'individualité et l'expression personnelle transparaît dans notre collection de t-shirts et sweats uniques, conçus pour vous permettre de laisser votre empreinte stylistique.
 
+## Cahier des charges pour les utilisateurs 📋👥:
+### Inscription et Connexion 🌐:
+- Formulaire d'inscription avec les champs nécessaires (nom, adresse e-mail, mot de passe, etc.).
+- Possibilité de se connecter via les réseaux sociaux (facultatif).
+- Fonctionnalité de récupération de mot de passe.
+
+### Navigation et Recherche 🔍:
+- Catégorisation claire des produits (t-shirts, sweats, etc.).
+- Barre de recherche pour trouver des produits spécifiques.
+- Filtrage des produits par taille, couleur, style, etc.
+
+### Sélection et Personnalisation 🎨:
+- Interface conviviale pour choisir et personnaliser les produits.
+- Galerie d'images pour chaque produit.
+- Outil de personnalisation permettant aux utilisateurs de créer leur propre style sur les t-shirts et sweats.
+
+### Ajout au Panier et Commande 🛒:
+- Ajout simple de produits au panier.
+- Panier persistant pour les utilisateurs connectés.
+- Historique des commandes pour les utilisateurs.
+
+### Gestion de Compte 📋:
+- Possibilité de modifier les informations du compte.
+- Historique d'achat et suivi des commandes.
