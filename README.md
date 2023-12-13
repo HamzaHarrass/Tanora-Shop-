@@ -21,6 +21,7 @@ Le principal défi que nous cherchons à résoudre est de créer une plateforme 
 
 
 ### Architecture MVC 🏗️
+
 Pour garantir une structure organisée et modulaire, nous adoptons une architecture Model-View-Controller (MVC). Cela permet une séparation claire des responsabilités entre la logique métier, la présentation et le stockage des données.
 
 - **Modèle (Model):**
