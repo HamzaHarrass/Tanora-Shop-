@@ -1,5 +1,5 @@
 const express = require("express");
-// require("./config/DBconnection")();
+require("./config/DB")();
 const cookieParser = require('cookie-parser');
 const app = express();
 // const authRouter = require("./routes/authRouter");
