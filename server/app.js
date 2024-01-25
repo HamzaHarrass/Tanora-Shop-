@@ -1,8 +1,8 @@
 const express = require("express");
-require("./config/DB")();
+require("./Config/DB")();
 const cookieParser = require('cookie-parser');
 const app = express();
-// const authRouter = require("./routes/authRouter");
+const authRouter = require("./Routers/AuthontificationRouter");
 // const appartementRoutes = require('./routes/appartementRouter');
 // const clientRouter = require('./routes/clientRouter');
 // const paiementRouter = require('./routes/paiementRouter');
@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 });
 
 // prefix | suffix
-// app.use("/auth", authRouter);
+app.use("/auth", authRouter);
 // app.use('/api', appartementRoutes);
 // app.use('/api', clientRouter);
 // app.use('/api', paiementRouter);
