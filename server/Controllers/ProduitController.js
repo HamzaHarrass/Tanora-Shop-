@@ -40,4 +40,36 @@ const createProduit = async (req, res) => {
     }
   };
 
-  module.exports = { createProduit , getAllProduits  };
+  const updateProduit = async (req, res) => {
+    try {
+      // Check if the user has 'admin' role
+      if (req.user.role !== 'admin') {
+        return res.status(403).json({ message: 'Permission denied. Only admin can update products.' });
+      }
+  
+      const { name, size, prix, image } = req.body;
+      const { id } = req.params;
+  
+      // Data validation
+      if (!name || !size || !prix || !image) {
+        return res.status(400).json({ message: 'All fields (name, size, prix, image) are required.' });
+      }
+  
+      const updatedProduit = await Produit.findByIdAndUpdate(
+        id,
+        { name, size, prix, image },
+        { new: true }
+      );
+  
+      if (!updatedProduit) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+  
+      res.status(200).json({ message: 'Product updated successfully', produit: updatedProduit });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
+
+  module.exports = { createProduit , getAllProduits , updateProduit };
