@@ -15,5 +15,6 @@ const isAdmin = (req, res, next) => {
 router.post('/create', isAdmin , produitController.createProduit);
 router.get('/', isAdmin , produitController.getAllProduits);
 router.put('/update/:id', isAdmin, produitController.updateProduit);
+router.delete('/delete/:id', isAdmin, produitController.deleteProduit);
 
 module.exports = router;

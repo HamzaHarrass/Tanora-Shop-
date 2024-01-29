@@ -72,4 +72,26 @@ const createProduit = async (req, res) => {
     }
   };
 
-  module.exports = { createProduit , getAllProduits , updateProduit };
+  const deleteProduit = async (req, res) => {
+    try {
+      // Check if the user has 'admin' role
+      if (req.user.role !== 'admin') {
+        return res.status(403).json({ message: 'Permission denied. Only admin can delete products.' });
+      }
+  
+      const { id } = req.params;
+  
+      const deletedProduit = await Produit.findByIdAndDelete(id);
+  
+      if (!deletedProduit) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+  
+      res.status(200).json({ message: 'Product deleted successfully', produit: deletedProduit });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
+
+  module.exports = { createProduit , getAllProduits , updateProduit , deleteProduit };
