@@ -13,5 +13,6 @@ const isAdmin = (req, res, next) => {
 
 // Routes for products
 router.post('/create', isAdmin , produitController.createProduit);
+router.get('/', isAdmin , produitController.getAllProduits);
 
 module.exports = router;

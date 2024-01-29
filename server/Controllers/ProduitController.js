@@ -30,4 +30,14 @@ const createProduit = async (req, res) => {
     }
   };
 
-  module.exports = { createProduit };
+  const getAllProduits = async (req, res) => {
+    try {
+      const produits = await Produit.find();
+      res.status(200).json({ produits });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
+
+  module.exports = { createProduit , getAllProduits  };
