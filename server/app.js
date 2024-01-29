@@ -1,13 +1,15 @@
 const express = require("express");
 require("./Config/DB")();
 const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 const app = express();
 const authRouter = require("./Routers/AuthontificationRouter");
-// const appartementRoutes = require('./routes/appartementRouter');
+const produitRouter = require("./Routers/ProduitRouter");
 // const clientRouter = require('./routes/clientRouter');
 // const paiementRouter = require('./routes/paiementRouter');
 
 const cors = require('cors');
+const { verifyToken } = require("./Middleware/auth");
 
 app.use(cookieParser());
 app.use(express.json());
@@ -24,7 +26,7 @@ app.get('/', (req, res) => {
 
 // prefix | suffix
 app.use("/auth", authRouter);
-// app.use('/api', appartementRoutes);
+app.use('/produits', verifyToken, produitRouter);
 // app.use('/api', clientRouter);
 // app.use('/api', paiementRouter);
 
