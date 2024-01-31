@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 require('dotenv').config();
 
 app.use(cors({
-    origin: "http://localhost:5170"
+    origin: "http://localhost:5173"
 }));
 
 app.get('/', (req, res) => {
