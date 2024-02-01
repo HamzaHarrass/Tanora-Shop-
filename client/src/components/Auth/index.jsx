@@ -1,14 +1,52 @@
 import {useEffect , useState } from 'react';
+import axios from 'axios'
 import '../../assets/style/css.css'; 
 const AuthForm = () => {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
+  const [formData, setFormData] = useState({
+    nom: '',
+    prenom: '',
+    email: '',
+    password: '',
+  });
 
-  const handleSignUpClick = () => {
+  const handleSignUpClick = (e) => {
     setIsSignUpMode(true);
   };
 
-  const handleSignInClick = () => {
+  const handleSignInClick = (e) => {
     setIsSignUpMode(false);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (isSignUpMode) {
+      // Register
+      try {
+        console.log(formData);
+        const response = await axios.post('http://localhost:3000/auth/register', formData);
+        console.log(response.data); 
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      // Login
+      try {
+        const response = await axios.post('http://localhost:3000/auth/login', formData);
+        console.log(response.data); 
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -19,17 +57,17 @@ const AuthForm = () => {
     <div className={`container ${isSignUpMode ? 'sign-up-mode' : ''}`}>
       <div className="forms-container">
         <div className="signin-signup">
-          <form action="#" className={`sign-in-form ${isSignUpMode ? 'hidden' : ''}`}>
+          <form action="#" className={`sign-in-form ${isSignUpMode ? 'hidden' : ''}`} onSubmit={handleFormSubmit}>
             <h2 className="title">Sign in</h2>
             <div className="input-field">
-              <i className="fas fa-user"></i>
-              <input type="text" placeholder="Username"  autoComplete="username"/>
+              <i className="fas fa-envelope"></i>
+              <input type="email" placeholder="Email"  autoComplete="Email"  name="email" value={formData.email} onChange={handleInputChange}/>
             </div>
             <div className="input-field">
               <i className="fas fa-lock"></i>
-              <input type="password" placeholder="Password"  autoComplete="current-password"/>
+              <input type="password" placeholder="Password"  autoComplete="current-password"  name="password" value={formData.password} onChange={handleInputChange}/>
             </div>
-            <input type="submit" value="Login" className="btn solid" />
+            <button type="submit" value="Login" className="btn solid">Login</button>
             <p className="social-text">Or Sign in with social platforms</p>
             <div className="social-media">
               <a href="#" className="social-icon">
@@ -50,21 +88,25 @@ const AuthForm = () => {
             </button>
           </form>
 
-          <form action="#" className={`sign-up-form ${isSignUpMode ? '' : 'hidden'}`}>
+          <form action="#" className={`sign-up-form ${isSignUpMode ? '' : 'hidden'}`} onSubmit={handleFormSubmit}>
             <h2 className="title">Sign up</h2>
             <div className="input-field">
               <i className="fas fa-user"></i>
-              <input type="text" placeholder="Username"  autoComplete="username"/>
+              <input type="text" placeholder="Nom"  autoComplete="username"  name="nom" value={formData.nom} onChange={handleInputChange}/>
+            </div>
+            <div className="input-field">
+              <i className="fas fa-user"></i>
+              <input type="text" placeholder="Prenom"  autoComplete="username"  name="prenom" value={formData.prenom} onChange={handleInputChange}/>
             </div>
             <div className="input-field">
               <i className="fas fa-envelope"></i>
-              <input type="email" placeholder="Email"  autoComplete="Email"/>
+              <input type="email" placeholder="Email"  autoComplete="Email"  name="email" value={formData.email} onChange={handleInputChange}/>
             </div>
             <div className="input-field">
               <i className="fas fa-lock"></i>
-              <input type="password" placeholder="Password"  autoComplete="current-password"/>
+              <input type="password" placeholder="Password"  autoComplete="current-password"  name="password" value={formData.password} onChange={handleInputChange}/>
             </div>
-            <input type="submit" className="btn" value="Sign up" />
+            <button type="submit" className="btn" value="Sign up">Sign up</button>
             <p className="social-text">Or Sign up with social platforms</p>
             <div className="social-media">
               <a href="#" className="social-icon">
