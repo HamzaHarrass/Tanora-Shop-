@@ -1,6 +1,7 @@
 import React from "react"
 import { BrowserRouter,Route, Routes } from "react-router-dom"
-import AuthForm from "./components/Auth"
+import Index from "./components/index/index"
+import Auth from "./components/Auth/auth"
 
 
 // import './App.css'
@@ -11,7 +12,8 @@ function App() {
       <BrowserRouter>
       <Routes>
         hello
-        <Route path="/" element={<AuthForm/>} />
+        <Route path="/" element={<Index/>} />
+        <Route path="/auth" element={<Auth/>} />
       </Routes>
       </BrowserRouter>
   </React.StrictMode>

@@ -1,6 +1,8 @@
 import {useEffect , useState } from 'react';
 import axios from 'axios'
 import '../../assets/style/css.css'; 
+import image from '../../assets/image/image.png';
+
 const AuthForm = () => {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const [formData, setFormData] = useState({
@@ -54,7 +56,7 @@ const AuthForm = () => {
   }, []);
 
   return (
-    <div className={`container ${isSignUpMode ? 'sign-up-mode' : ''}`}>
+    <div className={`container-auth ${isSignUpMode ? 'sign-up-mode' : ''}`}>
       <div className="forms-container">
         <div className="signin-signup">
           <form action="#" className={`sign-in-form ${isSignUpMode ? 'hidden' : ''}`} onSubmit={handleFormSubmit}>
@@ -141,6 +143,7 @@ const AuthForm = () => {
               Sign up
             </button>
           </div>
+          <img src={image} class="image" alt="" />
         </div>
         <div className="panel right-panel">
           <div className="content">
@@ -153,6 +156,7 @@ const AuthForm = () => {
               Sign in
             </button>
           </div>
+          <img src={image} class="image" alt="" />
         </div>
       </div>
     </div>
