@@ -6,16 +6,13 @@ const register = async (req, res) => {
     try {
       const { nom, prenom, email, password } = req.body;
   
-      // Check if the user with the given email already exists
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         return res.status(400).json({ message: 'User with this email already exists' });
       }
   
-      // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
   
-      // Create a new user
       const newUser = new User({
         nom,
         prenom,
@@ -24,17 +21,14 @@ const register = async (req, res) => {
         role: 'user',
       });
   
-      // Save the user to the database
       await newUser.save();
   
-      // Generate access token for the new user
       const accessToken = jwt.sign(
         { userId: newUser._id, email: newUser.email },
         process.env.JWT_SECRET || 'default_secret',
         { expiresIn: '3d' }
       );
   
-      // Send a response with the access token
       res.status(201).json({ access_token: accessToken, user: newUser });
     } catch (error) {
       console.error(error);

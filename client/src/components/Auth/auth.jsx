@@ -1,6 +1,6 @@
-import {useEffect , useState } from 'react';
-import axios from 'axios'
-import '../../assets/style/css.css'; 
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import '../../assets/style/css.css';
 import image from '../../assets/image/image.png';
 
 const AuthForm = () => {
@@ -11,6 +11,7 @@ const AuthForm = () => {
     email: '',
     password: '',
   });
+  const [message, setMessage] = useState(null); // Define the message state variable
 
   const handleSignUpClick = (e) => {
     setIsSignUpMode(true);
@@ -30,35 +31,43 @@ const AuthForm = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (isSignUpMode) {
       // Register
       try {
-        console.log(formData);
         const response = await axios.post('http://localhost:3000/auth/register', formData);
-        console.log(response.data); 
+        setMessage({ type: 'success', text: response.data.message });
+        setFormData({
+          nom: '',
+          prenom: '',
+          email: '',
+          password: '',
+        });
       } catch (error) {
-        console.error(error);
+        setMessage({ type: 'error', text: error.response.data.message });
       }
     } else {
       // Login
       try {
         const response = await axios.post('http://localhost:3000/auth/login', formData);
-        console.log(response.data); 
+        setMessage({ type: 'success', text: response.data.message });
       } catch (error) {
-        console.error(error);
+        setMessage({ type: 'error', text: error.response.data.message });
       }
     }
   };
 
-  useEffect(() => {
-  
-  }, []);
-
+  useEffect(() => {}, []);
   return (
     <div className={`container-auth ${isSignUpMode ? 'sign-up-mode' : ''}`}>
-      <div className="forms-container">
-        <div className="signin-signup">
+    {message && (
+      <div className={`alert ${message.type}`}>
+        {message.text}
+        <button onClick={() => setMessage(null)}>Close</button>
+      </div>
+    )}
+    <div className="forms-container">
+      <div className="signin-signup">
           <form action="#" className={`sign-in-form ${isSignUpMode ? 'hidden' : ''}`} onSubmit={handleFormSubmit}>
             <h2 className="title">Sign in</h2>
             <div className="input-field">
@@ -130,8 +139,7 @@ const AuthForm = () => {
           </form>
         </div>
       </div>
-
-      <div className="panels-container">
+        <div className="panels-container">
         <div className="panel left-panel">
           <div className="content">
             <h3>New here ?</h3>
@@ -143,7 +151,7 @@ const AuthForm = () => {
               Sign up
             </button>
           </div>
-          <img src={image} class="image" alt="" />
+          <img src={image} className="image" alt="" />
         </div>
         <div className="panel right-panel">
           <div className="content">
@@ -156,7 +164,7 @@ const AuthForm = () => {
               Sign in
             </button>
           </div>
-          <img src={image} class="image" alt="" />
+          <img src={image} className="image" alt="" />
         </div>
       </div>
     </div>

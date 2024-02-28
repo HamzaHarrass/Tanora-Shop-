@@ -2,14 +2,10 @@ const Produit = require("../Models/Produit")
 
 const createProduit = async (req, res) => {
     try {
-      // Check if the user has 'admin' role
-    //   if (req.user.role !== 'admin') {
-    //     return res.status(403).json({ message: 'Permission denied. Only admin can create products.' });
-    //   }
+  
   
       const { name, size, prix, image } = req.body;
   
-      // Data validation
       if (!name || !size || !prix || !image) {
         return res.status(400).json({ message: 'All fields (name, size, prix, image) are required.' });
       }
@@ -42,7 +38,6 @@ const createProduit = async (req, res) => {
 
   const updateProduit = async (req, res) => {
     try {
-      // Check if the user has 'admin' role
       if (req.user.role !== 'admin') {
         return res.status(403).json({ message: 'Permission denied. Only admin can update products.' });
       }
@@ -50,7 +45,6 @@ const createProduit = async (req, res) => {
       const { name, size, prix, image } = req.body;
       const { id } = req.params;
   
-      // Data validation
       if (!name || !size || !prix || !image) {
         return res.status(400).json({ message: 'All fields (name, size, prix, image) are required.' });
       }
@@ -74,7 +68,6 @@ const createProduit = async (req, res) => {
 
   const deleteProduit = async (req, res) => {
     try {
-      // Check if the user has 'admin' role
       if (req.user.role !== 'admin') {
         return res.status(403).json({ message: 'Permission denied. Only admin can delete products.' });
       }

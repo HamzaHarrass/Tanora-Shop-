@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const produitController = require('../Controllers/ProduitController');
 
-// Middleware to check if the user has 'admin' role
 const isAdmin = (req, res, next) => {
   if (req.user && req.user.role === 'admin') {
     next(); 
