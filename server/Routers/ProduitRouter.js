@@ -12,7 +12,7 @@ const isAdmin = (req, res, next) => {
 
 // Routes for products
 router.post('/create', isAdmin , produitController.createProduit);
-router.get('/', isAdmin , produitController.getAllProduits);
+router.get('/', produitController.getAllProduits);
 router.put('/update/:id', isAdmin, produitController.updateProduit);
 router.delete('/delete/:id', isAdmin, produitController.deleteProduit);
 

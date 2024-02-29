@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
     res.status(200).json({ message: "ALL IS GOOD" })
 });
 app.use("/auth", authRouter);
-app.use('/produits', verifyToken, produitRouter);
+app.use('/produits', produitRouter);
 
 
 const PORT = process.env.PORT || 3000;

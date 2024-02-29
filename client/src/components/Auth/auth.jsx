@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 import '../../assets/style/css.css';
 import image from '../../assets/image/image.png';
 
@@ -12,7 +14,8 @@ const AuthForm = () => {
     password: '',
   });
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
+  
   const handleSignUpClick = (e) => {
     setIsSignUpMode(true);
   };
@@ -45,7 +48,9 @@ const AuthForm = () => {
       try {
         const response = await axios.post('http://localhost:3000/auth/login', formData);
         console.log(response.data);
+        Cookies.set('token', response.data.token, { expires: 7 }); // Set token in cookies
         setError(null);
+        navigate('/produit/');
       } catch (error) {
         console.error(error);
         setError('Login failed. Please check your credentials and try again.');
