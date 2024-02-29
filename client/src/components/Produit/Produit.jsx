@@ -4,26 +4,65 @@ import axios from 'axios';
 
 const Produit = () => {
   const [products, setProducts] = useState([]);
+  const [showAddPopup, setShowAddPopup] = useState(false);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+  const [newProduct, setNewProduct] = useState({
+    name: '',
+    size: '',
+    prix: '',
+    image: ''
+  });
+  const [updateProduct, setUpdateProduct] = useState({
+    id: '',
+    name: '',
+    size: '',
+    prix: '',
+    image: ''
+  });
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/produits/')
-        setProducts(response.data.produits);
-      } catch (error) {
-        if (error.response) {
-          console.error('Server Error:', error.response.status, error.response.data);
-        } else if (error.request) {
-          console.error('No response received:', error.request);
-        } else {
-          console.error('Request error:', error.message);
-        }
-      }
-    };
-  
     fetchProducts();
   }, []);
 
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/produits/');
+      setProducts(response.data.produits);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  const handleAddProduct = async () => {
+    try {
+      await axios.post('http://localhost:3000/produits/create', newProduct);
+      setNewProduct({ name: '', size: '', prix: '', image: '' });
+      fetchProducts();
+      setShowAddPopup(false); // Close the popup after adding the product
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
+  };
+
+  const handleUpdateProduct = async () => {
+    try {
+      await axios.put(`http://localhost:3000/produits/update/${updateProduct.id}`, updateProduct);
+      setUpdateProduct({ id: '', name: '', size: '', prix: '', image: '' });
+      fetchProducts();
+      setShowUpdatePopup(false); // Close the popup after updating the product
+    } catch (error) {
+      console.error('Error updating product:', error);
+    }
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      await axios.delete(`http://localhost:3000/produits/delete/${productId}`);
+      fetchProducts();
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
 
   return (
     <>
@@ -38,18 +77,14 @@ const Produit = () => {
       <div>
         <h1 className="title">Product Management System</h1>
       </div>
+
       <div className="product-list">
         <h2 className="text-xl font-semibold mb-4">Products</h2>
+        <button onClick={() => setShowAddPopup(true)}>Add Product</button>
+
+        {/* Product List */}
         <table className="w-full border-collapse">
-          <thead>
-            <tr>
-              <th className="border border-gray-300 px-4 py-2">Name</th>
-              <th className="border border-gray-300 px-4 py-2">Size</th>
-              <th className="border border-gray-300 px-4 py-2">Price</th>
-              <th className="border border-gray-300 px-4 py-2">Image</th>
-              <th className="border border-gray-300 px-4 py-2">Actions</th>
-            </tr>
-          </thead>
+          {/* Table headers */}
           <tbody>
             {products.map((product, index) => (
               <tr key={index} className="border border-gray-300">
@@ -58,21 +93,56 @@ const Produit = () => {
                 <td className="border border-gray-300 px-4 py-2">{product.prix} DH</td>
                 <td className="border border-gray-300 px-4 py-2"><img src={product.image} alt={product.name} className="h-12 w-12 object-cover" /></td> 
                 <td className="border border-gray-300 px-4 py-2">
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => handleAddProduct()}>
-                    Add
-                  </button>
-                  <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2" onClick={() => handleUpdateProduct(product.id)}>
-                    Update
-                  </button>
-                  <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleDeleteProduct(product.id)}>
-                    Delete
-                  </button>
+                  <button onClick={() => { setUpdateProduct({ id: product._id, name: product.name, size: product.size, prix: product.prix, image: product.image }); setShowUpdatePopup(true); }}>Update</button>
+                  <button onClick={() => handleDeleteProduct(product._id)}>Delete</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+     {/* Add Product Popup */}
+{showAddPopup && (
+  <div className="popup">
+    <div className="popup-content">
+      <h3>Add Product</h3>
+      <form>
+        <label htmlFor="name">Name:</label>
+        <input type="text" id="name" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} />
+        <label htmlFor="size">Size:</label>
+        <input type="text" id="size" value={newProduct.size} onChange={(e) => setNewProduct({ ...newProduct, size: e.target.value })} />
+        <label htmlFor="prix">Price:</label>
+        <input type="text" id="prix" value={newProduct.prix} onChange={(e) => setNewProduct({ ...newProduct, prix: e.target.value })} />
+        <label htmlFor="image">Image:</label>
+        <input type="text" id="image" value={newProduct.image} onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })} />
+        <button type="button" onClick={handleAddProduct}>Add Product</button>
+        <button type="button" onClick={() => setShowAddPopup(false)}>Close</button>
+      </form>
+    </div>
+  </div>
+)}
+
+{/* Update Product Popup */}
+{showUpdatePopup && (
+  <div className="popup">
+    <div className="popup-content">
+      <h3>Update Product</h3>
+      <form>
+        <label htmlFor="name">Name:</label>
+        <input type="text" id="name" value={updateProduct.name} onChange={(e) => setUpdateProduct({ ...updateProduct, name: e.target.value })} />
+        <label htmlFor="size">Size:</label>
+        <input type="text" id="size" value={updateProduct.size} onChange={(e) => setUpdateProduct({ ...updateProduct, size: e.target.value })} />
+        <label htmlFor="prix">Price:</label>
+        <input type="text" id="prix" value={updateProduct.prix} onChange={(e) => setUpdateProduct({ ...updateProduct, prix: e.target.value })} />
+        <label htmlFor="image">Image:</label>
+        <input type="text" id="image" value={updateProduct.image} onChange={(e) => setUpdateProduct({ ...updateProduct, image: e.target.value })} />
+        <button type="button" onClick={handleUpdateProduct}>Update Product</button>
+        <button type="button" onClick={() => setShowUpdatePopup(false)}>Close</button>
+      </form>
+    </div>
+  </div>
+)}
     </>
   );
 };

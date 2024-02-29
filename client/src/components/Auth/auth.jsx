@@ -47,8 +47,8 @@ const AuthForm = () => {
     } else {
       try {
         const response = await axios.post('http://localhost:3000/auth/login', formData);
-        console.log(response.data);
-        Cookies.set('token', response.data.token, { expires: 7 }); // Set token in cookies
+        console.log(response);
+        Cookies.set('token', response.data.token, { expires: 7 }); 
         setError(null);
         navigate('/produit/');
       } catch (error) {
