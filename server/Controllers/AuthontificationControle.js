@@ -65,11 +65,12 @@ const login = async (req, res, next) => {
       process.env.JWT_REFRESH || 'default_refresh_secret',
       { expiresIn: '7d' }
     );
+    
 
     res.cookie('access_token', accessToken, { httpOnly: true, secure: false });
     res.cookie('refresh_token', refreshToken, { httpOnly: true });
 
-    res.status(200).json({ access_token: accessToken, refresh_token: refreshToken, user });
+    res.status(200).json({  user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });

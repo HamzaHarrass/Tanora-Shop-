@@ -36,11 +36,7 @@ const createProduit = async (req, res) => {
   };
 
   const updateProduit = async (req, res) => {
-    try {
-      // if (req.user.role !== 'admin') {
-      //   return res.status(403).json({ message: 'Permission denied. Only admin can update products.' });
-      // }
-  
+    try {  
       const { name, size, prix, image } = req.body;
       const { id } = req.params;
   
@@ -67,10 +63,7 @@ const createProduit = async (req, res) => {
 
   const deleteProduit = async (req, res) => {
     try {
-      // if (req.user.role !== 'admin') {
-      //   return res.status(403).json({ message: 'Permission denied. Only admin can delete products.' });
-      // }
-  
+        
       const { id } = req.params;
   
       const deletedProduit = await Produit.findByIdAndDelete(id);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../../assets/image/1e2f5cd0-2280-4816-ac4d-ffcbeabeb8c9.png'; 
 import axios from 'axios';
-
+axios.defaults.withCredentials = true;
 const Produit = () => {
   const [products, setProducts] = useState([]);
   const [showAddPopup, setShowAddPopup] = useState(false);
@@ -115,7 +115,7 @@ const Produit = () => {
         <label htmlFor="prix">Price:</label>
         <input type="text" id="prix" value={newProduct.prix} onChange={(e) => setNewProduct({ ...newProduct, prix: e.target.value })} />
         <label htmlFor="image">Image:</label>
-        <input type="text" id="image" value={newProduct.image} onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })} />
+        <input type="file" id="image" value={newProduct.image} onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })} />
         <button type="button" onClick={handleAddProduct}>Add Product</button>
         <button type="button" onClick={() => setShowAddPopup(false)}>Close</button>
       </form>
@@ -136,7 +136,7 @@ const Produit = () => {
         <label htmlFor="prix">Price:</label>
         <input type="text" id="prix" value={updateProduct.prix} onChange={(e) => setUpdateProduct({ ...updateProduct, prix: e.target.value })} />
         <label htmlFor="image">Image:</label>
-        <input type="text" id="image" value={updateProduct.image} onChange={(e) => setUpdateProduct({ ...updateProduct, image: e.target.value })} />
+        <input type="file" id="image" value={updateProduct.image} onChange={(e) => setUpdateProduct({ ...updateProduct, image: e.target.value })} />
         <button type="button" onClick={handleUpdateProduct}>Update Product</button>
         <button type="button" onClick={() => setShowUpdatePopup(false)}>Close</button>
       </form>
