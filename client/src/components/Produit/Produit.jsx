@@ -35,7 +35,8 @@ const Produit = () => {
 
   const handleAddProduct = async () => {
     try {
-      await axios.post('http://localhost:3000/produits/create', newProduct);
+      console.log(newProduct)
+      await axios.post('http://localhost:3000/produits/create', newProduct, { headers: {'Content-Type': 'multipart/form-data'}});
       setNewProduct({ name: '', size: '', prix: '', image: '' });
       fetchProducts();
       setShowAddPopup(false); // Close the popup after adding the product
@@ -107,7 +108,7 @@ const Produit = () => {
   <div className="popup">
     <div className="popup-content">
       <h3>Add Product</h3>
-      <form>
+      <form encType="multipart/form-data">
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} />
         <label htmlFor="size">Size:</label>
@@ -115,7 +116,7 @@ const Produit = () => {
         <label htmlFor="prix">Price:</label>
         <input type="text" id="prix" value={newProduct.prix} onChange={(e) => setNewProduct({ ...newProduct, prix: e.target.value })} />
         <label htmlFor="image">Image:</label>
-        <input type="file" id="image" value={newProduct.image} onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })} />
+        <input type="file" id="image" onChange={(e) => {setNewProduct({ ...newProduct, image: e.target.files[0] }); console.log(e)}} />
         <button type="button" onClick={handleAddProduct}>Add Product</button>
         <button type="button" onClick={() => setShowAddPopup(false)}>Close</button>
       </form>
@@ -128,7 +129,7 @@ const Produit = () => {
   <div className="popup">
     <div className="popup-content">
       <h3>Update Product</h3>
-      <form>
+      <form encType="multipart/form-data">
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" value={updateProduct.name} onChange={(e) => setUpdateProduct({ ...updateProduct, name: e.target.value })} />
         <label htmlFor="size">Size:</label>
@@ -136,7 +137,7 @@ const Produit = () => {
         <label htmlFor="prix">Price:</label>
         <input type="text" id="prix" value={updateProduct.prix} onChange={(e) => setUpdateProduct({ ...updateProduct, prix: e.target.value })} />
         <label htmlFor="image">Image:</label>
-        <input type="file" id="image" value={updateProduct.image} onChange={(e) => setUpdateProduct({ ...updateProduct, image: e.target.value })} />
+        <input type="file" id="image" onChange={(e) => setUpdateProduct({ ...newProduct, image: e.target.files[0] })} />
         <button type="button" onClick={handleUpdateProduct}>Update Product</button>
         <button type="button" onClick={() => setShowUpdatePopup(false)}>Close</button>
       </form>

@@ -1,31 +1,51 @@
-const Produit = require("../Models/Produit")
+const multer = require('multer');
+const Produit = require("../Models/Produit");
+
+// Configuration de Multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); 
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname); 
+  }
+});
+
+const upload = multer({ storage: storage });
 
 const createProduit = async (req, res) => {
-    try {
+  try {
+    console.log(req.body)
+    const { name, size, prix } = req.body;
 
-      const { name, size, prix, image } = req.body;
-  
-      if (!name || !size || !prix || !image) {
-        return res.status(400).json({ message: 'All fields (name, size, prix, image) are required.' });
-      }
-  
-      const newProduit = new Produit({
-        name,
-        size,
-        prix,
-        image,
-      });
-  
-      await newProduit.save();
-  
-      res.status(201).json({ message: 'Product created successfully', produit: newProduit });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
+
+    if (!req.file) {
+      return res.status(400).json({ message: 'Please upload an image.' });
     }
-  };
 
-  const getAllProduits = async (req, res) => {
+    const image = req.file.filename; 
+
+    if (!name || !size || !prix || !image) {
+      return res.status(400).json({ message: 'All fields (name, size, prix, image) are required.' });
+    }
+
+    const newProduit = new Produit({
+      name,
+      size,
+      prix,
+      image,
+    });
+
+    await newProduit.save();
+
+    res.status(201).json({ message: 'Product created successfully', produit: newProduit });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+const getAllProduits = async (req, res) => {
     try {
       const produits = await Produit.find();
       res.status(200).json({ produits });
@@ -33,9 +53,9 @@ const createProduit = async (req, res) => {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
     }
-  };
+};
 
-  const updateProduit = async (req, res) => {
+const updateProduit = async (req, res) => {
     try {  
       const { name, size, prix, image } = req.body;
       const { id } = req.params;
@@ -59,11 +79,10 @@ const createProduit = async (req, res) => {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
     }
-  };
+};
 
-  const deleteProduit = async (req, res) => {
-    try {
-        
+const deleteProduit = async (req, res) => {
+    try {  
       const { id } = req.params;
   
       const deletedProduit = await Produit.findByIdAndDelete(id);
@@ -77,6 +96,6 @@ const createProduit = async (req, res) => {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
     }
-  };
+};
 
-  module.exports = { createProduit , getAllProduits , updateProduit , deleteProduit };
+module.exports = { createProduit , getAllProduits , updateProduit , deleteProduit };
