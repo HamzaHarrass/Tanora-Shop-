@@ -39,7 +39,7 @@ const Produit = () => {
       await axios.post('http://localhost:3000/produits/create', newProduct, { headers: {'Content-Type': 'multipart/form-data'}});
       setNewProduct({ name: '', size: '', prix: '', image: '' });
       fetchProducts();
-      setShowAddPopup(false); // Close the popup after adding the product
+      setShowAddPopup(false); 
     } catch (error) {
       console.error('Error adding product:', error);
     }
@@ -50,7 +50,7 @@ const Produit = () => {
       await axios.put(`http://localhost:3000/produits/update/${updateProduct.id}`, updateProduct);
       setUpdateProduct({ id: '', name: '', size: '', prix: '', image: '' });
       fetchProducts();
-      setShowUpdatePopup(false); // Close the popup after updating the product
+      setShowUpdatePopup(false); 
     } catch (error) {
       console.error('Error updating product:', error);
     }
@@ -72,7 +72,6 @@ const Produit = () => {
           <a href="#" className="flex items-center">
             <img src={logo} className="h-6 mr-3 sm:h-9" alt="mochtara Logo"/>
           </a>
-          {/* Navigation links */}
         </div>
       </nav>
       <div>
@@ -83,16 +82,14 @@ const Produit = () => {
         <h2 className="text-xl font-semibold mb-4">Products</h2>
         <button onClick={() => setShowAddPopup(true)}>Add Product</button>
 
-        {/* Product List */}
         <table className="w-full border-collapse">
-          {/* Table headers */}
           <tbody>
             {products.map((product, index) => (
               <tr key={index} className="border border-gray-300">
                 <td className="border border-gray-300 px-4 py-2">{product.name}</td>
                 <td className="border border-gray-300 px-4 py-2">{product.size}</td>
                 <td className="border border-gray-300 px-4 py-2">{product.prix} DH</td>
-                <td className="border border-gray-300 px-4 py-2"><img src={product.image} alt={product.name} className="h-12 w-12 object-cover" /></td> 
+                <td className="border border-gray-300 px-4 py-2"><img src={`C:\\Users\INKONNU\Documents\\brief\\Tanora-Shop-\\server\\uploads\\${product.image}`} alt={product.name} className="h-12 w-12 object-cover" /></td> 
                 <td className="border border-gray-300 px-4 py-2">
                   <button onClick={() => { setUpdateProduct({ id: product._id, name: product.name, size: product.size, prix: product.prix, image: product.image }); setShowUpdatePopup(true); }}>Update</button>
                   <button onClick={() => handleDeleteProduct(product._id)}>Delete</button>
@@ -103,7 +100,6 @@ const Produit = () => {
         </table>
       </div>
 
-     {/* Add Product Popup */}
 {showAddPopup && (
   <div className="popup">
     <div className="popup-content">
@@ -124,7 +120,6 @@ const Produit = () => {
   </div>
 )}
 
-{/* Update Product Popup */}
 {showUpdatePopup && (
   <div className="popup">
     <div className="popup-content">

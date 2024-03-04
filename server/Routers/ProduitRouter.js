@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const produitController = require('../Controllers/ProduitController');
 const { verifyToken } = require('../Middleware/auth');
-
 const multer = require('multer'); 
+
 const isAdmin = (req, res, next) => {
   if (req.user && req.user.role === 'admin') {
     next(); 
@@ -12,6 +12,7 @@ const isAdmin = (req, res, next) => {
   }
 };
 
+// Configuration de Multer
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -22,11 +23,18 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage }).single('image');
 
-router.post('/create', verifyToken, isAdmin, upload.single('image'), produitController.createProduit);
+// Router
+router.post('/create', verifyToken, isAdmin, upload , produitController.createProduit);
 router.get('/', produitController.getAllProduits);
 router.put('/update/:id', produitController.updateProduit);
 router.delete('/delete/:id', produitController.deleteProduit);
-
+router.post('/uploads',upload,(req , res) => {
+  const { file } = req ; 
+  res.send({
+    file: file.originalname,
+    path: file.path,
+  })
+})
 module.exports = router;
