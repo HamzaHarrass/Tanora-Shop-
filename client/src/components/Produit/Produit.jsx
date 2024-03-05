@@ -89,7 +89,7 @@ const Produit = () => {
                 <td className="border border-gray-300 px-4 py-2">{product.name}</td>
                 <td className="border border-gray-300 px-4 py-2">{product.size}</td>
                 <td className="border border-gray-300 px-4 py-2">{product.prix} DH</td>
-                <td className="border border-gray-300 px-4 py-2"><img src={`C:\\Users\INKONNU\Documents\\brief\\Tanora-Shop-\\server\\uploads\\${product.image}`} alt={product.name} className="h-12 w-12 object-cover" /></td> 
+                <td className="border border-gray-300 px-4 py-2">  <img src={`http://localhost:3000/uploads/${product.image}`} alt={product.name} className="h-12 w-12 object-cover" /></td> 
                 <td className="border border-gray-300 px-4 py-2">
                   <button onClick={() => { setUpdateProduct({ id: product._id, name: product.name, size: product.size, prix: product.prix, image: product.image }); setShowUpdatePopup(true); }}>Update</button>
                   <button onClick={() => handleDeleteProduct(product._id)}>Delete</button>

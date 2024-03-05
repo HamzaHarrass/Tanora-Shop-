@@ -34,4 +34,4 @@ app.listen(PORT, () => {
 });
 
 //---------------- Public Images --------------------//
-app.use(express.static('uploads'))
+app.use('/uploads', express.static('uploads'));
