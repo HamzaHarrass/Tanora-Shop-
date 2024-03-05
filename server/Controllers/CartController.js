@@ -5,18 +5,15 @@ const addToCart = async (req, res) => {
   try {
     const { produitId, quantity } = req.body;
 
-    // Check if produitId and quantity are provided
     if (!produitId || !quantity) {
       return res.status(400).json({ message: 'Both produitId and quantity are required.' });
     }
 
-    // Find the product by id
     const produit = await Produit.findById(produitId);
     if (!produit) {
       return res.status(404).json({ message: 'Product not found.' });
     }
 
-    // Create or update cart item
     let cartItem = await Cart.findOne({ produit: produitId });
     if (cartItem) {
       cartItem.quantity += parseInt(quantity);
