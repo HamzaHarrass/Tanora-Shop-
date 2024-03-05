@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const authRouter = require("./Routers/AuthontificationRouter");
 const produitRouter = require("./Routers/ProduitRouter");
-
+const CartRoute = require("./Routers/CarteRouter");
 
 const cors = require('cors');
 const { verifyToken } = require("./Middleware/auth");
@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 });
 app.use("/auth", authRouter);
 app.use('/produits', produitRouter);
+app.use('/cart', CartRoute);
 
 
 const PORT = process.env.PORT || 3000;
