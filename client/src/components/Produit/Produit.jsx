@@ -46,9 +46,10 @@ const Produit = () => {
   };
 
   const handleUpdateProduct = async () => {
+    console.log(updateProduct)
     try {
-      await axios.put(`http://localhost:3000/produits/update/${updateProduct.id}`, updateProduct);
-      setUpdateProduct({ id: '', name: '', size: '', prix: '', image: '' });
+      await axios.put(`http://localhost:3000/produits/update/${updateProduct.id}`, updateProduct,{ headers: {'Content-Type': 'multipart/form-data'}});
+      // setUpdateProduct({ id: '', name: '', size: '', prix: '', image: '' });
       fetchProducts();
       setShowUpdatePopup(false); 
     } catch (error) {
@@ -132,7 +133,7 @@ const Produit = () => {
         <label htmlFor="prix">Price:</label>
         <input type="text" id="prix" value={updateProduct.prix} onChange={(e) => setUpdateProduct({ ...updateProduct, prix: e.target.value })} />
         <label htmlFor="image">Image:</label>
-        <input type="file" id="image" onChange={(e) => setUpdateProduct({ ...newProduct, image: e.target.files[0] })} />
+        <input type="file" id="image" onChange={(e) => setUpdateProduct({ ...updateProduct, image: e.target.files[0] })} />
         <button type="button" onClick={handleUpdateProduct}>Update Product</button>
         <button type="button" onClick={() => setShowUpdatePopup(false)}>Close</button>
       </form>

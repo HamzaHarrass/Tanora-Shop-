@@ -46,10 +46,12 @@ const getAllProduits = async (req, res) => {
 };
 
 const updateProduit = async (req, res) => {
+  console.log(req.body)
     try {  
-      const { name, size, prix, image } = req.body;
+      const { name, size, prix } = req.body;
       const { id } = req.params;
-  
+
+      const image = req.file.filename; 
       if (!name || !size || !prix || !image) {
         return res.status(400).json({ message: 'All fields (name, size, prix, image) are required.' });
       }
