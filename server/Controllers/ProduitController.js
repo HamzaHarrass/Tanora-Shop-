@@ -51,14 +51,18 @@ const updateProduit = async (req, res) => {
       const { name, size, prix } = req.body;
       const { id } = req.params;
 
-      const image = req.file.filename; 
-      if (!name || !size || !prix || !image) {
+      const image = req.file?.filename; 
+      if (!name || !size || !prix ) {
         return res.status(400).json({ message: 'All fields (name, size, prix, image) are required.' });
       }
-  
+      const newData={ name, size, prix}
+
+      if(image){
+          newData.image=image
+      }
       const updatedProduit = await Produit.findByIdAndUpdate(
         id,
-        { name, size, prix, image },
+        newData,
         { new: true }
       );
   
