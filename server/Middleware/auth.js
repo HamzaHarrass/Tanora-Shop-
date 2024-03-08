@@ -13,7 +13,24 @@ const verifyToken = (req,res,next)=>{
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+const isAdmin = (req, res, next) => {
+    if (req.user && req.user.role === 'admin') {
+      next(); 
+    } else {
+      res.status(403).json({ message: 'Permission denied. Only admin users have access.' });
+    }
+  };
+
+  const isUser = (req, res, next) => {
+    if (req.user && req.user.role === 'user') {
+      next(); 
+    } else {
+      res.status(403).json({ message: 'Permission denied. Only admin users have access.' });
+    }
+  };
 
 module.exports={
-    verifyToken
+    verifyToken,
+    isAdmin,
+    isUser
 }
