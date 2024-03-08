@@ -1,37 +1,62 @@
-const Cart = require("../Models/Cart");
-const Produit = require("../Models/Produit");
+const Cart = require('../Models/Cart');
 
-const addToCart = async (req, res) => {
-    try {
-      const { produitId, quantity, status } = req.body;
-  
-      if (!produitId || !quantity) {
-        return res.status(400).json({ message: 'Both produitId and quantity are required.' });
-      }
-  
-      const produit = await Produit.findById(produitId);
-      if (!produit) {
-        return res.status(404).json({ message: 'Product not found.' });
-      }
-  
-      let cartItem = await Cart.findOne({ produit: produitId });
-      if (cartItem) {
-        cartItem.quantity += parseInt(quantity);
-      } else {
-        cartItem = new Cart({
-          produit: produitId,
-          quantity: parseInt(quantity),
-          status: status || 'pending' 
-        });
-      }
-  
-      await cartItem.save();
-  
-      res.status(200).json({ message: 'Product added to cart successfully', cartItem });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Internal server error' });
+const createCart = async (req, res) => {
+  try {
+    const { userId, produitId, quantity } = req.body;
+    const newCart = await Cart.create({ user:userId, produit:produitId, quantity });
+    res.status(201).json(newCart);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getCart = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const cart = await Cart.findOne({ user: userId }).populate('produit');
+    if (!cart) {
+      return res.status(404).json({ error: 'Panier non trouvé' });
     }
-  };
+    res.status(200).json(cart);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-module.exports = { addToCart };
+const updateCart = async (req, res) => {
+  try {
+    const { userId, cartId } = req.params;
+    const { quantity, status } = req.body;
+    const updatedCart = await Cart.findOneAndUpdate(
+      { user: userId, _id: cartId },
+      { quantity, status },
+      { new: true }
+    ).populate('produit');
+    if (!updatedCart) {
+      return res.status(404).json({ error: 'Panier non trouvé' });
+    }
+    res.status(200).json(updatedCart);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const deleteCart = async (req, res) => {
+  try {
+    const { userId, cartId } = req.params;
+    const deletedCart = await Cart.findOneAndDelete({ user: userId, _id: cartId });
+    if (!deletedCart) {
+      return res.status(404).json({ error: 'Panier non trouvé' });
+    }
+    res.status(200).json({ message: 'Panier supprimé avec succès' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  createCart,
+  getCart,
+  updateCart,
+  deleteCart,
+};

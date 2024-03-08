@@ -5,9 +5,9 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const authRouter = require("./Routers/AuthontificationRouter");
 const produitRouter = require("./Routers/ProduitRouter");
+const cartRouter = require("./Routers/CartRouter")
 
 const cors = require('cors');
-const { verifyToken } = require("./Middleware/auth");
 
 app.use(cookieParser());
 app.use(express.json());
@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 });
 app.use("/auth", authRouter);
 app.use('/produits', produitRouter);
-
+app.use('/carts',cartRouter );
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
