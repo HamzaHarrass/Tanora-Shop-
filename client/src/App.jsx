@@ -14,7 +14,7 @@ function App() {
         hello
         <Route path="/" element={<Index/>} />
         <Route path="/auth" element={<Auth/>} />
-        <Route path="/produit" element={<Produit/>} />
+        <Route path="/dashboard" element={<Produit/>} />
       </Routes>
       </BrowserRouter>
   </React.StrictMode>
