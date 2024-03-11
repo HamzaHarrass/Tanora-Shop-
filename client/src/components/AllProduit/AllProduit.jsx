@@ -7,6 +7,7 @@ const AllProduit = () => {
   const [produits, setProduits] = useState([]);
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
+  // const userId = '65ba6888152961b7f057b316'; // Utilisateur actuel, à remplacer par une authentification réelle
 
   useEffect(() => {
     const fetchProduits = async () => {
