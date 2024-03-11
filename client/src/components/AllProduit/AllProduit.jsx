@@ -7,7 +7,6 @@ const AllProduit = () => {
   const [produits, setProduits] = useState([]);
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
-  // const userId = '65ba6888152961b7f057b316'; // Utilisateur actuel, à remplacer par une authentification réelle
 
   useEffect(() => {
     const fetchProduits = async () => {
@@ -19,7 +18,19 @@ const AllProduit = () => {
       }
     };
 
+    const fetchUserCart = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/carts`, {
+        });
+        console.log(response)
+        setCart(response.data.produits);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchProduits();
+    fetchUserCart(); 
   }, []);
 
   const addToCart = async (produit) => {

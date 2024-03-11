@@ -2,8 +2,8 @@ const Cart = require('../Models/Cart');
 
 const createCart = async (req, res) => {
   try {
-    const {produitId, quantity } = req.body;
-    const userId  = req.user.userId
+    const { produitId, quantity } = req.body;
+    const userId = req.user.userId;
 
     let cart = await Cart.findOne({ user: userId });
 
@@ -18,9 +18,7 @@ const createCart = async (req, res) => {
       }
 
       cart.produits = produits;
-      
     } else {
-      console.log(cart)
       cart = new Cart({ user: userId, produits: [{ produit: produitId, quantity }] });
     }
 
@@ -31,10 +29,11 @@ const createCart = async (req, res) => {
   }
 };
 
-const getCart = async (req, res) => {
+const getCart =  async (req, res) => {
   try {
-    const { userId } = req.params;
-    const cart = await Cart.findOne({ user: userId }).populate('produit');
+    const userId = req.user.userId; 
+    const cart = await Cart.findOne({ user: userId }).populate('produits.produit');
+    console.log("cart" ,cart)
     if (!cart) {
       return res.status(404).json({ error: 'Panier non trouvé' });
     }
