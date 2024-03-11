@@ -1,13 +1,12 @@
 import React from 'react';
-import { FaTimes, FaShoppingCart, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaTimes, FaPlus, FaMinus } from 'react-icons/fa';
 
 const Cart = ({
   cart,
-  removeFromCart,
   toggleCart,
-  confirmOrder,
   increaseQuantity,
   decreaseQuantity,
+  removeFromCart,
 }) => {
   return (
     <div className="fixed top-0 right-0 h-full w-1/3 bg-white p-4 shadow-lg z-50">
@@ -24,45 +23,39 @@ const Cart = ({
         <p className="text-center text-gray-600">Your cart is empty.</p>
       ) : (
         <div>
-          {cart.map((item) => (
-            <div key={item.produit.produitId} className="flex justify-between items-center mb-4">
-              <div>
-                <p className="text-lg font-bold">{item.produit.name}</p>
-                <p className="text-gray-600">Quantity: {item.quantity}</p>
-                <p className="text-gray-600">Price: ${item.produit.prix}</p>
-              </div>
-              <div className="flex items-center">
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
-                  onClick={() => decreaseQuantity(item.produit.produitId)}
-                >
-                  <FaMinus />
-                </button>
-                <button
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mx-2"
-                  onClick={() => increaseQuantity(item.produit.produitId)}
-                >
-                  <FaPlus />
-                </button>
-                <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-                  onClick={() => removeFromCart(item.produit.produitId)}
-                >
-                  Remove
-                </button>
-              </div>
-            </div>
-          ))}
+  {cart.map((item) => (
+  <div key={item.produit._id} className="flex justify-between items-center mb-4">
+    <div>
+      <p className="text-lg font-bold">{item.produit.name}</p>
+      <p className="text-gray-600">Quantity: {item.quantity}</p>
+      <p className="text-gray-600">Price: ${item.produit.prix}</p>
+    </div>
+    <div className="flex items-center">
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+        onClick={() => decreaseQuantity(item)}
+      >
+        <FaMinus />
+      </button>
+      <button
+        className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mx-2"
+        onClick={() => increaseQuantity(item)}
+      >
+        <FaPlus />
+      </button>
+      <button
+        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+        onClick={() => removeFromCart(item.produit._id)}
+      >
+        Remove
+      </button>
+    </div>
+  </div>
+))}
+
           <p className="text-lg font-bold">
             Total: ${cart.reduce((total, item) => total + item.produit.prix * item.quantity, 0)}
           </p>
-          <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 flex items-center"
-            onClick={confirmOrder}
-          >
-            <FaShoppingCart className="mr-2" />
-            Confirm Order
-          </button>
         </div>
       )}
     </div>

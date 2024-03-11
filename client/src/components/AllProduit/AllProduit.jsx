@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaShoppingCart, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 import Cart from '../Cart/cart';
 
 const AllProduit = () => {
@@ -20,9 +20,7 @@ const AllProduit = () => {
 
     const fetchUserCart = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/carts`, {
-        });
-        console.log(response)
+        const response = await axios.get(`http://localhost:3000/carts`, {});
         setCart(response.data.produits);
       } catch (error) {
         console.error(error);
@@ -30,7 +28,7 @@ const AllProduit = () => {
     };
 
     fetchProduits();
-    fetchUserCart(); 
+    fetchUserCart();
   }, []);
 
   const addToCart = async (produit) => {
@@ -43,38 +41,72 @@ const AllProduit = () => {
         quantity,
       });
 
-      setCart((prevCart) => [...prevCart, { produitId, prix, name, size, image, quantity }]);
+      setCart((prevCart) => [
+        ...prevCart,
+        { produitId, prix, name, size, image, quantity },
+      ]);
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const removeFromCart = (produitId) => {
-    setCart((prevCart) => prevCart.filter((item) => item.produitId !== produitId));
   };
 
   const toggleCart = () => {
     setShowCart(!showCart);
   };
 
-  const confirmOrder = () => {
-    console.log('Commande confirmée !');
+  const increaseQuantity = async (item) => {
+    try {
+      const { produitId } = item;
+      if (produitId) {
+        const response = await axios.patch(`http://localhost:3000/carts/${produitId}`, {
+          action: 'increase',
+        });
+          console.log("hey " ,response);
+        setCart((prevCart) =>
+          prevCart.map((cartItem) =>
+            cartItem.produitId === produitId
+              ? { ...cartItem, quantity: cartItem.quantity + 1 }
+              : cartItem
+          )
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
-
-  const increaseQuantity = (produitId) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.produitId === produitId ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
+  
+  const decreaseQuantity = async (item) => {
+    try {
+      const { produitId } = item;
+      if (produitId) {
+        const response = await axios.patch(`http://localhost:3000/carts/${produitId}`, {
+          action: 'decrease',
+        });
+  
+        setCart((prevCart) =>
+          prevCart.map((cartItem) =>
+            cartItem.produitId === produitId
+              ? { ...cartItem, quantity: cartItem.quantity - 1 }
+              : cartItem
+          )
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+  
 
-  const decreaseQuantity = (produitId) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.produitId === produitId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-      )
-    );
+  const removeFromCart = async (produitId) => {
+    try {
+      const response = await axios.delete(`http://localhost:3000/carts/${produitId}`);
+
+      setCart((prevCart) =>
+        prevCart.filter((item) => item.produitId !== produitId)
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -93,11 +125,10 @@ const AllProduit = () => {
       {showCart && (
         <Cart
           cart={cart}
-          removeFromCart={removeFromCart}
           toggleCart={toggleCart}
-          confirmOrder={confirmOrder}
           increaseQuantity={increaseQuantity}
           decreaseQuantity={decreaseQuantity}
+          removeFromCart={removeFromCart}
         />
       )}
       <div className="container mx-auto py-8">
@@ -121,25 +152,6 @@ const AllProduit = () => {
                   >
                     Add to Cart
                   </button>
-                  {cart.find((item) => item.produitId === produit._id) && (
-                    <div className="flex ml-4">
-                      <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
-                        onClick={() => decreaseQuantity(produit._id)}
-                      >
-                        <FaMinus />
-                      </button>
-                      <span className="mx-2">
-                        {cart.find((item) => item.produitId === produit._id).quantity}
-                      </span>
-                      <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
-                        onClick={() => increaseQuantity(produit._id)}
-                      >
-                        <FaPlus />
-                      </button>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
