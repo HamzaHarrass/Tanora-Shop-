@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaPlus, FaMinus } from 'react-icons/fa';
 import Cart from '../Cart/cart';
 
 const AllProduit = () => {
@@ -51,6 +51,22 @@ const AllProduit = () => {
     console.log('Commande confirmée !');
   };
 
+  const increaseQuantity = (produitId) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.produitId === produitId ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  const decreaseQuantity = (produitId) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.produitId === produitId && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+      )
+    );
+  };
+
   return (
     <div>
       <nav className="bg-gray-800 py-4">
@@ -64,7 +80,16 @@ const AllProduit = () => {
           </div>
         </div>
       </nav>
-      {showCart && <Cart cart={cart} removeFromCart={removeFromCart} toggleCart={toggleCart} confirmOrder={confirmOrder} />}
+      {showCart && (
+        <Cart
+          cart={cart}
+          removeFromCart={removeFromCart}
+          toggleCart={toggleCart}
+          confirmOrder={confirmOrder}
+          increaseQuantity={increaseQuantity}
+          decreaseQuantity={decreaseQuantity}
+        />
+      )}
       <div className="container mx-auto py-8">
         <h1 className="text-3xl font-bold mb-6">All Products</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -79,12 +104,33 @@ const AllProduit = () => {
                 <h2 className="text-xl font-bold mb-2">{produit.name}</h2>
                 <p className="text-gray-600 mb-2">Size: {produit.size}</p>
                 <p className="text-gray-600 font-bold">Price: ${produit.prix}</p>
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-                  onClick={() => addToCart(produit)}
-                >
-                  Add to Cart
-                </button>
+                <div className="flex items-center mt-4">
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+                    onClick={() => addToCart(produit)}
+                  >
+                    Add to Cart
+                  </button>
+                  {cart.find((item) => item.produitId === produit._id) && (
+                    <div className="flex ml-4">
+                      <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+                        onClick={() => decreaseQuantity(produit._id)}
+                      >
+                        <FaMinus />
+                      </button>
+                      <span className="mx-2">
+                        {cart.find((item) => item.produitId === produit._id).quantity}
+                      </span>
+                      <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+                        onClick={() => increaseQuantity(produit._id)}
+                      >
+                        <FaPlus />
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))}
