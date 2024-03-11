@@ -11,7 +11,6 @@ function App() {
   <React.StrictMode>
       <BrowserRouter>
       <Routes>
-        hello
         <Route path="/" element={<Index/>} />
         <Route path="/auth" element={<Auth/>} />
         <Route path="/dashboard" element={<Produit/>} />

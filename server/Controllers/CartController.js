@@ -3,8 +3,26 @@ const Cart = require('../Models/Cart');
 const createCart = async (req, res) => {
   try {
     const { userId, produitId, quantity } = req.body;
-    const newCart = await Cart.create({ user:userId, produit:produitId, quantity });
-    res.status(201).json(newCart);
+
+    let cart = await Cart.findOne({ user: userId });
+
+    if (cart) {
+      const produits = cart.produits || [];
+      const produitIndex = produits.findIndex((p) => p.produit.toString() === produitId);
+
+      if (produitIndex !== -1) {
+        produits[produitIndex].quantity += quantity;
+      } else {
+        produits.push({ produit: produitId, quantity });
+      }
+
+      cart.produits = produits;
+    } else {
+      cart = new Cart({ user: userId, produits: [{ produit: produitId, quantity }] });
+    }
+
+    const savedCart = await cart.save();
+    res.status(200).json(savedCart);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

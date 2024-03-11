@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaShoppingCart } from 'react-icons/fa';
+import Cart from '../Cart/cart';
 
 const AllProduit = () => {
   const [produits, setProduits] = useState([]);
   const [cart, setCart] = useState([]);
+  const [showCart, setShowCart] = useState(false);
 
   useEffect(() => {
     const fetchProduits = async () => {
@@ -19,8 +21,29 @@ const AllProduit = () => {
     fetchProduits();
   }, []);
 
-  const addToCart = (produit) => {
-    setCart([...cart, produit]);
+  const addToCart = async (produit) => {
+    try {
+      const userId = '65ba6888152961b7f057b316'; 
+      const { _id: produitId, prix, name, size, image } = produit;
+      const quantity = 1; 
+
+      const response = await axios.post('http://localhost:3000/carts/', {
+        userId,
+        produitId,
+        quantity,
+      });
+
+      setCart((prevCart) => [...prevCart, { produitId, prix, name, size, image, quantity }]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const removeFromCart = (produitId) => {
+    setCart((prevCart) => prevCart.filter((item) => item.produitId !== produitId));
+  };
+
+  const toggleCart = () => {
+    setShowCart(!showCart);
   };
 
   return (
@@ -28,14 +51,15 @@ const AllProduit = () => {
       <nav className="bg-gray-800 py-4">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-white font-bold">My Shop</h1>
-          <div className="relative">
-            <FaShoppingCart className="text-white text-2xl" />
-            <span className="absolute  left-5 bg-red-500 text-white rounded-full px-1 py-0 text-sm">
+          <div className="relative" onClick={toggleCart}>
+            <FaShoppingCart className="text-white text-2xl cursor-pointer" />
+            <span className="absolute left-5 bg-red-500 text-white rounded-full px-1 py-0 text-sm">
               {cart.length}
             </span>
           </div>
         </div>
       </nav>
+      {showCart && <Cart cart={cart} removeFromCart={removeFromCart} />}
       <div className="container mx-auto py-8">
         <h1 className="text-3xl font-bold mb-6">All Products</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
