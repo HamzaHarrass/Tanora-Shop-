@@ -22,7 +22,7 @@ const Cart = ({ cart, removeFromCart, toggleCart, confirmOrder, increaseQuantity
               <div>
                 <p>{item.name}</p>
                 <p>Quantité: {item.quantity}</p>
-                <p>Prix: ${item.prix}</p>
+                <p>Prix: ${item.prix }</p>
               </div>
               <div className="flex items-center">
                 <button

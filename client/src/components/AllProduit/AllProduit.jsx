@@ -23,12 +23,10 @@ const AllProduit = () => {
 
   const addToCart = async (produit) => {
     try {
-      const userId = '65ba6888152961b7f057b316';
       const { _id: produitId, prix, name, size, image } = produit;
       const quantity = 1;
 
       const response = await axios.post('http://localhost:3000/carts/', {
-        userId,
         produitId,
         quantity,
       });

@@ -50,7 +50,7 @@ const AuthForm = () => {
         console.log(response);
         Cookies.set('token', response.data.access_token, { expires: 7 }); 
         setError(null);
-        navigate('/dashboard');
+        navigate('/produit');
       } catch (error) {
         console.error(error);
         setError('Login failed. Please check your credentials and try again.');
