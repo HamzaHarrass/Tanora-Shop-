@@ -25,28 +25,28 @@ const Cart = ({
       ) : (
         <div>
           {cart.map((item) => (
-            <div key={item.produitId} className="flex justify-between items-center mb-4">
+            <div key={item.produit.produitId} className="flex justify-between items-center mb-4">
               <div>
-                <p className="text-lg font-bold">{item.name}</p>
+                <p className="text-lg font-bold">{item.produit.name}</p>
                 <p className="text-gray-600">Quantity: {item.quantity}</p>
-                <p className="text-gray-600">Price: ${item.prix}</p>
+                <p className="text-gray-600">Price: ${item.produit.prix}</p>
               </div>
               <div className="flex items-center">
                 <button
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
-                  onClick={() => decreaseQuantity(item.produitId)}
+                  onClick={() => decreaseQuantity(item.produit.produitId)}
                 >
                   <FaMinus />
                 </button>
                 <button
                   className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mx-2"
-                  onClick={() => increaseQuantity(item.produitId)}
+                  onClick={() => increaseQuantity(item.produit.produitId)}
                 >
                   <FaPlus />
                 </button>
                 <button
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-                  onClick={() => removeFromCart(item.produitId)}
+                  onClick={() => removeFromCart(item.produit.produitId)}
                 >
                   Remove
                 </button>
@@ -54,7 +54,7 @@ const Cart = ({
             </div>
           ))}
           <p className="text-lg font-bold">
-            Total: ${cart.reduce((total, item) => total + item.prix * item.quantity, 0)}
+            Total: ${cart.reduce((total, item) => total + item.produit.prix * item.quantity, 0)}
           </p>
           <button
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 flex items-center"
