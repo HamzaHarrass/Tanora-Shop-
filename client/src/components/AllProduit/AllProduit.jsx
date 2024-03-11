@@ -23,9 +23,9 @@ const AllProduit = () => {
 
   const addToCart = async (produit) => {
     try {
-      const userId = '65ba6888152961b7f057b316'; 
+      const userId = '65ba6888152961b7f057b316';
       const { _id: produitId, prix, name, size, image } = produit;
-      const quantity = 1; 
+      const quantity = 1;
 
       const response = await axios.post('http://localhost:3000/carts/', {
         userId,
@@ -38,12 +38,17 @@ const AllProduit = () => {
       console.error(error);
     }
   };
+
   const removeFromCart = (produitId) => {
     setCart((prevCart) => prevCart.filter((item) => item.produitId !== produitId));
   };
 
   const toggleCart = () => {
     setShowCart(!showCart);
+  };
+
+  const confirmOrder = () => {
+    console.log('Commande confirmée !');
   };
 
   return (
@@ -59,7 +64,7 @@ const AllProduit = () => {
           </div>
         </div>
       </nav>
-      {showCart && <Cart cart={cart} removeFromCart={removeFromCart} />}
+      {showCart && <Cart cart={cart} removeFromCart={removeFromCart} toggleCart={toggleCart} confirmOrder={confirmOrder} />}
       <div className="container mx-auto py-8">
         <h1 className="text-3xl font-bold mb-6">All Products</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
