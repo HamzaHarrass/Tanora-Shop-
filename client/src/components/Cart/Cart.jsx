@@ -6,6 +6,7 @@ const Cart = ({
   toggleCart,
   creaseQuantity,
   removeFromCart,
+  confirmOrder, // New function for order confirmation
 }) => {
   
   return (
@@ -23,39 +24,45 @@ const Cart = ({
         <p className="text-center text-gray-600 text-black">Your cart is empty.</p>
       ) : (
         <div>
-  {cart.map((item) => (
-  <div key={item.produit._id} className="flex justify-between items-center mb-4">
-    <div>
-      <p className="text-lg font-bold  text-black">{item.produit.name}</p>
-      <p className="text-gray-600">Quantity: {item.quantity}</p>
-      <p className="text-gray-600">Price: ${item.produit.prix}</p>
-    </div>
-    <div className="flex items-center">
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
-        onClick={() => creaseQuantity(item,'decrease')}
-      >
-        <FaMinus />
-      </button>
-      <button
-        className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mx-2"
-        onClick={() => creaseQuantity(item,'increase')}
-      >
-        <FaPlus />
-      </button>
-      <button
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-        onClick={() => removeFromCart(item)}
-      >
-        Remove
-      </button>
-    </div>
-  </div>
-))}
-
+          {cart.map((item) => (
+            <div key={item.produit._id} className="flex justify-between items-center mb-4">
+              <div>
+                <p className="text-lg font-bold  text-black">{item.produit.name}</p>
+                <p className="text-gray-600">Quantity: {item.quantity}</p>
+                <p className="text-gray-600">Price: ${item.produit.prix}</p>
+              </div>
+              <div className="flex items-center">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+                  onClick={() => creaseQuantity(item, 'decrease')}
+                >
+                  <FaMinus />
+                </button>
+                <button
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mx-2"
+                  onClick={() => creaseQuantity(item, 'increase')}
+                >
+                  <FaPlus />
+                </button>
+                <button
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                  onClick={() => removeFromCart(item)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
           <p className="text-lg font-bold">
             Total: ${cart.reduce((total, item) => total + item.produit.prix * item.quantity, 0)}
           </p>
+          
+          <button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+            onClick={confirmOrder}
+          >
+            Confirm Order
+          </button>
         </div>
       )}
     </div>
