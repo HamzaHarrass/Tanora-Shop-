@@ -17,6 +17,27 @@ const Order = ({ userId }) => {
     fetchOrders();
   }, [userId]);
 
+
+  const renderStatusStepper = (order) => {
+    const statusOptions = ['pending' , 'processing', 'completed',  'shipped', 'delivered', 'cancelled'];
+
+    return (
+      <div className="flex justify-between items-center mt-4">
+        {statusOptions.map((option, index) => (
+          <React.Fragment key={option}>
+            <button
+              onClick={() => handleStatusChange(order._id, option)}
+              className={`py-2 px-4 rounded-md ${order.status === option ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'} focus:outline-none focus:bg-blue-500 focus:text-white`}
+            >
+              {option}
+            </button>
+            {index !== statusOptions.length - 1 && <hr className="border-t-2 border-gray-300 w-20 mx-2" />}
+          </React.Fragment>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-2xl font-bold mb-4">Orders for User ID: {userId}</h2>
@@ -37,6 +58,7 @@ const Order = ({ userId }) => {
             <p className="text-lg font-bold">
               Total: ${order.produits.reduce((total, item) => total + item.produit.prix * item.quantity, 0)}
             </p>
+            {renderStatusStepper(order)}
           </li>
         ))}
       </ul>
