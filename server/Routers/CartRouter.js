@@ -5,11 +5,8 @@ const { verifyToken} = require('../Middleware/auth');
 const router = express.Router();
 
 router.post('/', verifyToken, cartController.createCart);
-
+router.patch('/crease',verifyToken, cartController.creaseQuantity)
 router.get('/', verifyToken, cartController.getCart);
-
-router.put('/:userId/:cartId', verifyToken, cartController.updateCart);
-
-router.delete('/:userId/:cartId', verifyToken, cartController.deleteCart);
+router.delete('/:produitId', verifyToken, cartController.deleteCart);
 
 module.exports = router;

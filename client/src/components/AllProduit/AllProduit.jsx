@@ -40,11 +40,10 @@ const AllProduit = () => {
         produitId,
         quantity,
       });
+      console.log(response.data)
 
-      setCart((prevCart) => [
-        ...prevCart,
-        { produitId, prix, name, size, image, quantity },
-      ]);
+      setCart(response.data.produits);
+      console.log(cart)
     } catch (error) {
       console.error(error);
     }
@@ -54,20 +53,16 @@ const AllProduit = () => {
     setShowCart(!showCart);
   };
 
-  const increaseQuantity = async (item) => {
+  const creaseQuantity = async (item, action) => {
     try {
-      const { produitId } = item;
+      const produitId = item.produit._id;
       if (produitId) {
-        const response = await axios.patch(`http://localhost:3000/carts/${produitId}`, {
-          action: 'increase',
+        const response = await axios.patch(`http://localhost:3000/carts/crease`, {
+          produitId,
+          action,
         });
           console.log("hey " ,response);
-        setCart((prevCart) =>
-          prevCart.map((cartItem) =>
-            cartItem.produitId === produitId
-              ? { ...cartItem, quantity: cartItem.quantity + 1 }
-              : cartItem
-          )
+        setCart(response.data.produits
         );
       }
     } catch (error) {
@@ -75,35 +70,37 @@ const AllProduit = () => {
     }
   };
   
-  const decreaseQuantity = async (item) => {
-    try {
-      const { produitId } = item;
-      if (produitId) {
-        const response = await axios.patch(`http://localhost:3000/carts/${produitId}`, {
-          action: 'decrease',
-        });
+  // const decreaseQuantity = async (item) => {
+  //   try {
+  //     const { produitId } = item;
+  //     if (produitId) {
+  //       const response = await axios.patch(`http://localhost:3000/carts/${produitId}`, {
+  //         action: 'decrease',
+  //       });
   
-        setCart((prevCart) =>
-          prevCart.map((cartItem) =>
-            cartItem.produitId === produitId
-              ? { ...cartItem, quantity: cartItem.quantity - 1 }
-              : cartItem
-          )
-        );
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //       setCart((prevCart) =>
+  //         prevCart.map((cartItem) =>
+  //           cartItem.produitId === produitId
+  //             ? { ...cartItem, quantity: cartItem.quantity - 1 }
+  //             : cartItem
+  //         )
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   
 
-  const removeFromCart = async (produitId) => {
+  const removeFromCart = async (item) => {
+    const produitId = item.produit._id;
+    console.log(produitId)
     try {
       const response = await axios.delete(`http://localhost:3000/carts/${produitId}`);
-
-      setCart((prevCart) =>
-        prevCart.filter((item) => item.produitId !== produitId)
+      console.log(response)
+      setCart(response.data.produits
       );
+      
     } catch (error) {
       console.error(error);
     }
@@ -126,8 +123,8 @@ const AllProduit = () => {
         <Cart
           cart={cart}
           toggleCart={toggleCart}
-          increaseQuantity={increaseQuantity}
-          decreaseQuantity={decreaseQuantity}
+          creaseQuantity={creaseQuantity}
+          // decreaseQuantity={decreaseQuantity}
           removeFromCart={removeFromCart}
         />
       )}
@@ -146,12 +143,14 @@ const AllProduit = () => {
                 <p className="text-gray-600 mb-2">Size: {produit.size}</p>
                 <p className="text-gray-600 font-bold">Price: ${produit.prix}</p>
                 <div className="flex items-center mt-4">
-                  <button
+                 {cart.findIndex(item => item.produit._id == produit._id) == -1 ? <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
                     onClick={() => addToCart(produit)}
                   >
                     Add to Cart
                   </button>
+                    : <p className='text-green-500 bg-green-200 rounded p-1'> In cart</p>
+                  }
                 </div>
               </div>
             </div>
