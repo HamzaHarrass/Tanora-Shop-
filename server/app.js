@@ -6,7 +6,7 @@ const app = express();
 const authRouter = require("./Routers/AuthontificationRouter");
 const produitRouter = require("./Routers/ProduitRouter");
 const cartRouter = require("./Routers/CartRouter")
-
+const orderRoutes = require("./Routers/OrderRouter")
 const cors = require('cors');
 
 app.use(cookieParser());
@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 app.use("/auth", authRouter);
 app.use('/produits', produitRouter);
 app.use('/carts',cartRouter );
+app.use('/orders', orderRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

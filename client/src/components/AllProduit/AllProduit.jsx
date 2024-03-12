@@ -70,28 +70,6 @@ const AllProduit = () => {
     }
   };
   
-  // const decreaseQuantity = async (item) => {
-  //   try {
-  //     const { produitId } = item;
-  //     if (produitId) {
-  //       const response = await axios.patch(`http://localhost:3000/carts/${produitId}`, {
-  //         action: 'decrease',
-  //       });
-  
-  //       setCart((prevCart) =>
-  //         prevCart.map((cartItem) =>
-  //           cartItem.produitId === produitId
-  //             ? { ...cartItem, quantity: cartItem.quantity - 1 }
-  //             : cartItem
-  //         )
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  
-
   const removeFromCart = async (item) => {
     const produitId = item.produit._id;
     console.log(produitId)
@@ -101,6 +79,16 @@ const AllProduit = () => {
       setCart(response.data.produits
       );
       
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const confirmOrder = async () => {
+    try {
+      const response = await axios.post('http://localhost:3000/orders/confirm');
+      console.log(response.data);
+      setCart(response.data.cart.produits)
     } catch (error) {
       console.error(error);
     }
@@ -124,8 +112,8 @@ const AllProduit = () => {
           cart={cart}
           toggleCart={toggleCart}
           creaseQuantity={creaseQuantity}
-          // decreaseQuantity={decreaseQuantity}
           removeFromCart={removeFromCart}
+          confirmOrder={confirmOrder}
         />
       )}
       <div className="container mx-auto py-8">

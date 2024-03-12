@@ -6,7 +6,7 @@ const Cart = ({
   toggleCart,
   creaseQuantity,
   removeFromCart,
-  confirmOrder, // New function for order confirmation
+  confirmOrder,
 }) => {
   
   return (

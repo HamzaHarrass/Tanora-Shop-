@@ -1,4 +1,5 @@
 const Cart = require('../Models/Cart');
+const Order = require('../Models/Order');
 
 const createCart = async (req, res) => {
   try {
@@ -99,9 +100,30 @@ const deleteCart = async (req, res) => {
   }
 };
 
+const confirmOrder = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const cart = await Cart.findOne({ user: userId });
+
+    if (!cart || cart.produits.length === 0) {
+      return res.status(400).json({ error: 'Cart is empty' });
+    }
+
+    const order = new Order({ cart: cart._id });
+    await order.save();
+
+
+
+    res.status(201).json({ message: 'Order confirmed successfully', order });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   createCart,
   getCart,
   deleteCart,
-  creaseQuantity
+  creaseQuantity,
+  confirmOrder
 };

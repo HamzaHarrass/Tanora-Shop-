@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Produit = require('./Produit')
-const User = require('./Admin')
-const CartSchema = new Schema({
+const Cart = require('./Cart');
+
+const OrderSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
   },
   produits: [{
     produit:{
@@ -21,12 +21,17 @@ const CartSchema = new Schema({
     },
     
   }],
+  status: {
+    type: String,
+    enum: ['pending', 'completed', 'processing', 'shipped', 'delivered', 'cancelled'],
+    default: 'pending',
+  },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-const Cart = mongoose.model('Cart', CartSchema);
+const Order = mongoose.model('Order', OrderSchema);
 
-module.exports = Cart;
+module.exports = Order;
