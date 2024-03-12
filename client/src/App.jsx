@@ -4,6 +4,7 @@ import Index from "./components/index/index"
 import Auth from "./components/Auth/auth"
 import Produit from "./components/Produit/Produit"
 import AllProduit from "./components/AllProduit/AllProduit"
+import Order from "./components/Order/Order"
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/auth" element={<Auth/>} />
         <Route path="/dashboard" element={<Produit/>} />
         <Route path="/produit" element={<AllProduit/>} />
+        <Route path="/order" element={<Order/>} />
       </Routes>
       </BrowserRouter>
   </React.StrictMode>
