@@ -8,4 +8,5 @@ router.post('/confirm',verifyToken, OrderController.confirmOrder);
 
 router.get('/', verifyToken, OrderController.getOrder);
 
+router.get('/all' , OrderController.allOrder)
 module.exports = router;

@@ -32,4 +32,13 @@ const getOrder = async (req, res) => {
     }
   };
 
-module.exports = { confirmOrder , getOrder };
+  const allOrder = async (req, res) => {
+    try {
+      const orders = await Order.find().populate('produits.produit');
+      res.status(200).json({ orders });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+
+module.exports = { confirmOrder , getOrder , allOrder };
