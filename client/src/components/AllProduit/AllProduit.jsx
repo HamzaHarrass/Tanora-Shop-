@@ -23,7 +23,7 @@ const AllProduit = () => {
         const response = await axios.get(`http://localhost:3000/carts`, {});
         setCart(response.data.produits);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching user's cart:", error.response); // Log error response
       }
     };
 
