@@ -22,7 +22,7 @@ const upload = multer({ storage: storage }).single('image');
 router.post('/create', verifyToken, isAdmin, upload , produitController.createProduit);
 router.get('/', produitController.getAllProduits);
 router.put('/update/:id',verifyToken, isAdmin, upload , produitController.updateProduit);
-router.delete('/delete/:id', isAdmin, produitController.deleteProduit);
+router.delete('/delete/:id',verifyToken , isAdmin, produitController.deleteProduit);
 router.post('/uploads',upload,(req , res) => {
   const { file } = req ; 
   res.send({

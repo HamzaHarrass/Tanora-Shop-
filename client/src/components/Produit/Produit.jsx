@@ -11,14 +11,18 @@ const Produit = () => {
     name: '',
     size: '',
     prix: '',
-    image: ''
+    image: '',
+    category: '',
+    color: ''
   });
   const [updateProduct, setUpdateProduct] = useState({
     id: '',
     name: '',
     size: '',
     prix: '',
-    image: ''
+    image: '',
+    category: '',
+    color: ''
   });
 
   useEffect(() => {
@@ -36,21 +40,38 @@ const Produit = () => {
 
   const handleAddProduct = async () => {
     try {
-      console.log(newProduct)
-      await axios.post('http://localhost:3000/produits/create', newProduct, { headers: {'Content-Type': 'multipart/form-data'}});
-      setNewProduct({ name: '', size: '', prix: '', image: '' });
+      const formData = new FormData();
+      formData.append('name', newProduct.name);
+      formData.append('size', newProduct.size);
+      formData.append('prix', newProduct.prix);
+      formData.append('image', newProduct.image);
+      formData.append('category', newProduct.category); 
+      formData.append('color', newProduct.color); 
+  
+      if (!newProduct.name || !newProduct.size || !newProduct.prix || !newProduct.image || !newProduct.category || !newProduct.color) {
+        throw new Error('All fields (name, size, prix, image, category, color) are required.');
+      }
+  
+      await axios.post('http://localhost:3000/produits/create', formData);
+      setNewProduct({ name: '', size: '', prix: '', image: '', category: '', color: '' });
       fetchProducts();
       setShowAddPopup(false); 
     } catch (error) {
-      console.error('Error adding product:', error);
+      console.error('Error adding product:', error.message);
     }
   };
-
+  
   const handleUpdateProduct = async () => {
-    console.log(updateProduct)
     try {
-      await axios.put(`http://localhost:3000/produits/update/${updateProduct.id}`, updateProduct,{ headers: {'Content-Type': 'multipart/form-data'}});
-      // setUpdateProduct({ id: '', name: '', size: '', prix: '', image: '' });
+      const formData = new FormData();
+      formData.append('name', updateProduct.name);
+      formData.append('size', updateProduct.size);
+      formData.append('prix', updateProduct.prix);
+      formData.append('image', updateProduct.image);
+      formData.append('category', updateProduct.category);
+      formData.append('color', updateProduct.color);
+
+      await axios.put(`http://localhost:3000/produits/update/${updateProduct.id}`, formData);
       fetchProducts();
       setShowUpdatePopup(false); 
     } catch (error) {
@@ -93,11 +114,13 @@ const Produit = () => {
                   <td className="border border-gray-300 px-4 py-2">{product.name}</td>
                   <td className="border border-gray-300 px-4 py-2">{product.size}</td>
                   <td className="border border-gray-300 px-4 py-2">{product.prix} DH</td>
+                  <td className="border border-gray-300 px-4 py-2">{product.category}</td>
+                  <td className="border border-gray-300 px-4 py-2">{product.color}</td>
                   <td className="border border-gray-300 px-4 py-2">
                     <img src={`http://localhost:3000/uploads/${product.image}`} alt={product.name} className="h-12 w-12 object-cover" />
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    <button onClick={() => { setUpdateProduct({ id: product._id, name: product.name, size: product.size, prix: product.prix, image: product.image }); setShowUpdatePopup(true); }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2">
+                    <button onClick={() => { setUpdateProduct({ id: product._id, name: product.name, size: product.size, prix: product.prix, image: product.image, category: product.category, color: product.color }); setShowUpdatePopup(true); }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2">
                       Update
                     </button>
                     <button onClick={() => handleDeleteProduct(product._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
@@ -123,11 +146,28 @@ const Produit = () => {
                 </div>
                 <div>
                 <label htmlFor="size">Size:</label>
-                <input type="text" id="size" value={newProduct.size} onChange={(e) => setNewProduct({ ...newProduct, size: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
+                <select type="text" id="size" value={newProduct.size} onChange={(e) => setNewProduct({ ...newProduct, size: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded">
+                  <option value="s">s</option>
+                  <option value="m">m</option>
+                  <option value="l">l</option>
+                  <option value="xl">xl</option>
+                  <option value="xxl">xxl</option>
+                </select>
                 </div>
                 <div>
                 <label htmlFor="prix">Price:</label>
                 <input type="text" id="prix" value={newProduct.prix} onChange={(e) => setNewProduct({ ...newProduct, prix: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
+                </div>
+                <div>
+                <label htmlFor="category">Category:</label>
+                <select type="text" id="category" value={newProduct.category} onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded">
+                  <option value="t-shirt">t-shirt</option>
+                  <option value="Streetwear">Streetwear</option>
+                </select>
+                </div>
+                <div>
+                <label htmlFor="color">Color:</label>
+                <input type="text" id="color" value={newProduct.color} onChange={(e) => setNewProduct({ ...newProduct, color: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
                 </div>
                 <div>
                 <label htmlFor="image">Image:</label>
@@ -152,14 +192,35 @@ const Produit = () => {
             <div className="bg-white rounded-lg p-8 max-w-md w-full">
               <h3 className="text-lg font-semibold mb-4">Update Product</h3>
               <form encType="multipart/form-data">
+                <div>
                 <label htmlFor="name">Name:</label>
                 <input type="text" id="name" value={updateProduct.name} onChange={(e) => setUpdateProduct({ ...updateProduct, name: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
-                <label htmlFor="size">Size:</label>
-                <input type="text" id="size" value={updateProduct.size} onChange={(e) => setUpdateProduct({ ...updateProduct, size: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
-                <label htmlFor="prix">Price:</label>
+                </div>
+                <div><label htmlFor="size">Size:</label>
+                <select type="text" id="size" value={updateProduct.size} onChange={(e) => setUpdateProduct({ ...updateProduct, size: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" >
+                <option value="s">s</option>
+                <option value="m">m</option>
+                <option value="l">l</option>
+                <option value="xl">xl</option>
+                <option value="xxl">xxl</option>
+                </select>
+                </div>
+                <div><label htmlFor="prix">Price:</label>
                 <input type="text" id="prix" value={updateProduct.prix} onChange={(e) => setUpdateProduct({ ...updateProduct, prix: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
-                <label htmlFor="image">Image:</label>
+                </div>
+                <div>
+                <label htmlFor="category">Category:</label>
+                <select type="text" id="category" value={updateProduct.category} onChange={(e) => setUpdateProduct({ ...updateProduct, category: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded">
+                  <option value="t-shirt">t-shirt</option>
+                  <option value="Streetwear">Streetwear</option>
+                </select>
+                </div>
+                <div><label htmlFor="color">Color:</label>
+                <input type="text" id="color" value={updateProduct.color} onChange={(e) => setUpdateProduct({ ...updateProduct, color: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
+                </div>
+                <div><label htmlFor="image">Image:</label>
                 <input type="file" id="image" onChange={(e) => setUpdateProduct({ ...updateProduct, image: e.target.files[0] })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
+                </div>
                 <div className="flex justify-end">
                   <button type="button" onClick={handleUpdateProduct} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
                     Update Product
