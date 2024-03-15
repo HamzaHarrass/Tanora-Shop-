@@ -1,28 +1,33 @@
 import React from "react"
-import { BrowserRouter,Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Index from "./components/index/index"
-import Auth from "./components/Auth/auth"
-import Produit from "./components/Produit/Produit"
 import AllProduit from "./components/AllProduit/AllProduit"
+import Produit from "./components/Produit/Produit"
 import Order from "./components/Order/Order"
 import AllOrder from "./components/AllOrder/AllOrder"
-
+import Login from "./components/Auth/Login"
+import Register from "./components/Auth/Register"
+import Auth from "./components/Auth"
 
 function App() {
   return (
-  <React.StrictMode>
+    <React.StrictMode>
       <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Index/>} />
-        <Route path="/auth" element={<Auth/>} />
-        <Route path="/dashboard" element={<Produit/>} />
-        <Route path="/produit" element={<AllProduit/>} />
-        <Route path="/order" element={<Order/>} />
-        <Route path="/allorder" element={<AllOrder/>} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/allproduit" element={<AllProduit />} />
+          <Route path="/dashboard" element={<Produit />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/allorder" element={<AllOrder />} />
+          <Route path="/auth" element={<Auth/>}>
+           <Route path="/auth/register" element={<Register />} />
+           <Route path="/auth/login" element={<Login />} />
+          </Route>
+        </Routes>
       </BrowserRouter>
-  </React.StrictMode>
+    </React.StrictMode>
   )
 }
+
 
 export default App
