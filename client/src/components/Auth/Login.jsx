@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
 const Login = () => {
@@ -21,36 +23,21 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-      const response = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      });
-  
-      const data = await response.json();
-      console.log(data)
-      if (!response.ok) {
-        if (data.message === "User not found") {
-          throw new Error("User not found");
-        } else if (data.errors) {
-          const errorMessages = Object.values(data.errors)
-            .map((error) => Object.values(error).join(", "))
-            .join(", ");
-          throw new Error(errorMessages || "Login failed");
-        } else {
-          throw new Error(data.message || "Login failed");
-        }
-      }
-  
-      toast.success("Login successful!");
-      navigate("/dashboard");
+      const formData = {
+        email: credentials.email,
+        password: credentials.password,
+      };
+
+      const response = await axios.post('http://localhost:3000/auth/login', formData);
+      console.log(response);
+      Cookies.set('token', response.data.access_token, { expires: 7 }); 
+      setError(null);
+      navigate('/dashboard');
     } catch (error) {
       console.error(error);
-      setError(error.message || "Login failed");
+      setError('Login failed. Please check your credentials and try again.');
     }
   };
 
