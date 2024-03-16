@@ -1,7 +1,5 @@
 import React from 'react';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from '../../assets/image/1e2f5cd0-2280-4816-ac4d-ffcbeabeb8c9.png';
 import tshort from '../../assets/image/tshort.png';
@@ -17,7 +15,7 @@ import banner from '../../assets/image/banner.jpg';
 const Index = () => {
   return (
     <>
-      <nav className="bg-gray-100 border-gray-200 py-2.5 dark:bg-gray-900">
+      <nav className="  py-2.5 ">
         <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
           <a href="#" className="flex items-center">
             <img src={logo} className="h-6 mr-3 sm:h-9" alt="mochtara Logo"/>
@@ -32,10 +30,10 @@ const Index = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                 </svg>
               </button>
-              <a href="https://themesberg.com/product/tailwind-css/landing-page"
+              <Link to={`/auth/register`} href="https://themesberg.com/product/tailwind-css/landing-page"
                 className="text-white bg-black hover:bg-gray-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-base px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-black dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-purple-800">
                 sign-up
-              </a>
+              </Link>
               <button data-collapse-toggle="mobile-menu-2" type="button"
                 className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="mobile-menu-2" aria-expanded="true">
@@ -116,7 +114,7 @@ const Index = () => {
           <div className="mr-40 bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold mb-4">Flash Sale</h2>
             <div className="flex items-center mb-4">
-              <img src={tshort} alt="Sunglass" className="w-16 h-16 mr-4" />
+              <img src={tshort} alt="Sunglass" className="w-30 h-40 mr-4" />
               <div>
                 <h3 className="text-lg font-bold">Wayfarer Sungl...</h3>
                 <p className="text-gray-600">Our optical engineer...</p>
@@ -129,8 +127,8 @@ const Index = () => {
             <div className="flex items-center mb-2">
               <span className="text-gray-600 mr-2">Sold:</span>
               <span className="font-bold mr-4">120</span>
-              <span className="text-gray-600 mr-2">Available:</span>
-              <span className="font-bold">147</span>
+              <span className="text-gray-600 ml-40">Available:</span>
+              <span className="font-bold ml-2">147</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div
@@ -173,6 +171,66 @@ const Index = () => {
           </div>
         </div>
       </section>
+      <section className="mt-20"> 
+      <div className="grid grid-cols-3 gap-4 ">
+
+          <div className="bg-white rounded-lg shadow-md md:flex h-40 overflow-hidden ml-5 ">
+            <img src={tshort} alt="Armani Veni Vidi Vici" className="md:w-1/3"/>
+            <div className="p-4">
+              <h3 className="text-lg font-semibold">Armani Veni Vidi Vici</h3>
+              <p className="text-gray-600">Fendi began life in 1925 ...</p>
+              <p className="text-xl font-bold">$17.99 <span className="text-gray-500 line-through">$20.00</span></p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-md md:flex h-40 overflow-hidden ml-5 ">
+            <img src={tshort} alt="Adidas Shoes Black" className="md:w-1/3"/>
+            <div className="p-4">
+              <h3 className="text-lg font-semibold">Adidas Shoes Black</h3>
+              <p className="text-gray-600">Men Black top shoes gown</p>
+              <p className="text-xl font-bold">$45.00 <span className="text-gray-500 line-through">$99.99</span></p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-md md:flex h-40 overflow-hidden ml-5 ">
+            <img src={tshort} alt="Gucci Carlton UK" className="md:w-1/3"/>
+            <div className="p-4">
+              <h3 className="text-lg font-semibold">Gucci Carlton UK</h3>
+              <p className="text-gray-600">Knitted midi A-line dress....</p>
+              <p className="text-xl font-bold">$14.99 <span className="text-gray-500 line-through">$19.99</span></p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-md md:flex h-40 overflow-hidden ml-5 ">
+            <img src={tshort} alt="Scuba Stand Collar T..." className="md:w-1/3"/>
+            <div className="p-4">
+              <h3 className="text-lg font-semibold">Scuba Stand Collar T...</h3>
+              <p className="text-gray-600">Zara provides only the hi...</p>
+              <p className="text-xl font-bold">$12.00 <span className="text-gray-500 line-through">$16.00</span></p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-md md:flex h-40 overflow-hidden ml-5 ">
+            <img src={tshort} alt="Regular Fit Crew-nec..." className="md:w-1/3"/>
+            <div className="p-4">
+              <h3 className="text-lg font-semibold">Regular Fit Crew-nec...</h3>
+              <p className="text-gray-600">Self-striped knitted midi ...</p>
+              <p className="text-xl font-bold">$12.30 <span className="text-gray-500 line-through">$16.38</span></p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-md md:flex h-40 overflow-hidden ml-5 ">
+            <img src={tshort} alt="Hermes Carlton Lon..." className="md:w-1/3"/>
+            <div className="p-4">
+              <h3 className="text-lg font-semibold">Hermes Carlton Lon...</h3>
+              <p className="text-gray-600">Off-White self-striped kni...</p>
+              <p className="text-xl font-bold">$15.00</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
     </>
   );
 };
