@@ -163,6 +163,8 @@ const Produit = () => {
                 <select type="text" id="category" value={newProduct.category} onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded">
                   <option value="t-shirt">t-shirt</option>
                   <option value="Streetwear">Streetwear</option>
+                  <option value="sweatshirt">sweatshirt</option>
+                  <option value="sweat">sweat</option>
                 </select>
                 </div>
                 <div>
@@ -213,6 +215,8 @@ const Produit = () => {
                 <select type="text" id="category" value={updateProduct.category} onChange={(e) => setUpdateProduct({ ...updateProduct, category: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded">
                   <option value="t-shirt">t-shirt</option>
                   <option value="Streetwear">Streetwear</option>
+                  <option value="sweatshirt">sweatshirt</option>
+                  <option value="sweat">sweat</option>
                 </select>
                 </div>
                 <div><label htmlFor="color">Color:</label>
