@@ -26,6 +26,7 @@ const Cart = ({
         <div>
           {cart.map((item) => (
             <div key={item.produit._id} className="flex justify-between items-center mb-4">
+              <img src={`http://localhost:3000/uploads/${item.produit.image}`} alt={item.produit.name} className="w-20 object-cover object-center rounded-lg shadow-md"/>    
               <div>
                 <p className="text-lg font-bold  text-black">{item.produit.name}</p>
                 <p className="text-gray-600">Quantity: {item.quantity}</p>

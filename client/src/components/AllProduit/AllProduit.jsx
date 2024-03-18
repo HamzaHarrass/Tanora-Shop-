@@ -99,7 +99,7 @@ const AllProduit = () => {
 
   return (
     <div>
-   <nav className="  py-2.5 ">
+   <nav className="py-2.5 mt-5">
         <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
           <a href="#" className="flex items-center">
             <img src={logo} className="h-6 mr-3 sm:h-9" alt="mochtara Logo"/>
@@ -173,23 +173,34 @@ const AllProduit = () => {
           confirmOrder={confirmOrder}
         />
       )}
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto py-8 ">
       <h2 className="flex flex-row flex-nowrap items-center mt-10 mb-4">
           <span className="text-2xl font-bold border-b-2 border-zinc-800 pb-2.5 ml-4">All Products</span>
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {produits.map((produit) => (
-            <div key={produit._id} className="bg-white rounded-lg shadow-md overflow-hidden">
-              <img
-                src={`http://localhost:3000/uploads/${produit.image}`}
-                alt={produit.name}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h2 className="text-xl font-bold mb-2">{produit.name}</h2>
-                <p className="text-gray-600 mb-2">Size: {produit.size}</p>
-                <p className="text-gray-600 font-bold">Price: ${produit.prix}</p>
-                <div className="flex items-center mt-4">
+      <div className="  wrapper antialiased text-gray-900 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {produits.map((produit) => (
+          <div key={produit._id} className="mt-10">
+          <img src={`http://localhost:3000/uploads/${produit.image}`} alt={produit.name} className="w-80 object-cover object-center rounded-lg shadow-md  "/>    
+          
+      <div className="relative px-4 -mt-16 w-100 ">
+        <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="flex items-baseline">
+            <span className="bg-teal-200 text-teal-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
+              New
+            </span>
+          </div>
+          
+          <h4 className="mt-1 text-xl font-semibold uppercase leading-tight truncate">{produit.name}</h4>
+      
+        <div className="mt-1">
+        {produit.prix}
+          <span className="text-gray-600 text-sm">   DH</span>
+        </div>
+        <div className="mt-4">
+          <span className="text-teal-600 text-md font-semibold">{produit.size} </span>
+          <span className="text-sm text-gray-600">{produit.color}</span>
+        </div> 
+        <div className="flex items-center mt-4">
                  {cart.findIndex(item => item.produit._id == produit._id) == -1 ? <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
                     onClick={() => addToCart(produit)}
@@ -198,12 +209,14 @@ const AllProduit = () => {
                   </button>
                     : <p className='text-green-500 bg-green-200 rounded p-1'> In cart</p>
                   }
-                </div>
-              </div>
-            </div>
-          ))}
+                </div> 
         </div>
       </div>
+      </div>
+      ))}
+        </div>
+      </div>
+      
       <footer className="mt-20">
     <div className="py-4 text-black">
       <div className="container px-4 mx-auto">
