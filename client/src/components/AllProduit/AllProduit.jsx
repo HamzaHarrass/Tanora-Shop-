@@ -185,7 +185,7 @@ const AllProduit = () => {
       <div className="relative px-4 -mt-16 w-100 ">
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <div className="flex items-baseline">
-            <span className="bg-teal-200 text-teal-800 text-xs px-2 inline-block rounded-full  uppercase font-semibold tracking-wide">
+            <span className="bg-green-200 text-green-800 text-xs px-3 py-1 inline-block rounded-full  uppercase font-semibold tracking-wide">
               New
             </span>
           </div>
@@ -197,8 +197,8 @@ const AllProduit = () => {
           <span className="text-gray-600 text-sm">   DH</span>
         </div>
         <div className="mt-4">
-          <span className="text-teal-600 text-md font-semibold">{produit.size} </span>
-          <span className="text-sm text-gray-600">{produit.color}</span>
+          <span className="text-pink-300 text-xl font-semibold">{produit.size} </span>
+          <span className="text-md text-gray-600">{produit.color}</span>
         </div> 
         <div className="flex items-center mt-4">
                  {cart.findIndex(item => item.produit._id == produit._id) == -1 ? <button

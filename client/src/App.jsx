@@ -4,6 +4,7 @@ import Index from "./components/index/index"
 import AllProduit from "./components/AllProduit/AllProduit"
 import Produit from "./components/Produit/Produit"
 import Order from "./components/Order/Order"
+import Design from "./components/Design/design"
 import AllOrder from "./components/AllOrder/AllOrder"
 import Login from "./components/Auth/Login"
 import Register from "./components/Auth/Register"
@@ -19,6 +20,7 @@ function App() {
           <Route path="/dashboard" element={<Produit />} />
           <Route path="/order" element={<Order />} />
           <Route path="/allorder" element={<AllOrder />} />
+          <Route path="/design" element={<Design />} />
           <Route path="/auth" element={<Auth/>}>
            <Route path="/auth/register" element={<Register />} />
            <Route path="/auth/login" element={<Login />} />

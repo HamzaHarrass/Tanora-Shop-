@@ -26,12 +26,6 @@ const Index = () => {
               <span></span>
             </div>
             <div className="flex grid-cols-2 gap-5">
-              <button href="#" className="">
-                
-              {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                </svg> */}
-              </button>
               <Link to={`/auth/register`} href="https://themesberg.com/product/tailwind-css/landing-page"
                 className="text-white bg-black hover:bg-gray-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-base px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-black dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-purple-800">
                 sign-up
@@ -67,8 +61,10 @@ const Index = () => {
                 </Link>
               </li>
               <li>
-                <a href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-700 border-b text-base border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Design</a>
+                <Link to={`/design`}
+                  className="block py-2 pl-3 pr-4 text-gray-700 border-b text-base border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
+                    Design
+                  </Link>
               </li>
               <li>
                 <a href="#"
@@ -98,24 +94,11 @@ const Index = () => {
       </section>
       
       <section>
-        <div className="flex justify-between">
-          <div className="w-1/2 pr-4">
-          <img src={banner} alt="Backpack" className="ml-40  rounded-lg shadow-lg" />
-            {/* <div className="relative">
-              <div className=" w-50 bg-white p-3 rounded-lg shadow-lg bg-yellow-400 text-center">
-                <h2 className="text-3xl font-bold mb-2">GET 25% OFF</h2>
-                <p className="text-xl">ON SELECTED ITEMS</p>
-                <p className="text-lg">BACKPACK COLLECTION</p>
-                <a
-                  href="#"
-                  className="inline-block mt-4 px-6 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700"
-                >
-                  Go To Collection
-                </a>
-              </div>
-            </div> */}
+        <div className="flex justify-between gap-10">
+          <div className="flex-1">
+          <img src={banner} alt="Backpack" className="mx-20  rounded-lg shadow-lg" />
           </div>
-          <div className="mr-40 bg-white p-8 rounded-lg shadow-lg">
+          <div className="mx-20 bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold mb-4">Flash Sale</h2>
             <div className="flex items-center mb-4">
               <img src={tshort} alt="Sunglass" className="w-30 h-40 mr-4" />
@@ -144,8 +127,8 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="mt-6">
-        <h2 className="flex flex-row flex-nowrap items-center mt-10 mb-4">
+      <section className="mt-6 flex flex-col items-center gap-6">
+        <h2 className="flex flex-row flex-nowrap items-center mt-10 mb-4 text-center">
           <span className="text-2xl font-bold border-b-2 border-zinc-800 pb-2.5 ml-4">New Collection</span>
         </h2>
         <div className="flex items-center justify-center space-x-4">
@@ -175,76 +158,15 @@ const Index = () => {
           </div>
         </div>
       </section>
+      <section className="m-20 p-20 pt-10 border-2 rounded-lg flex flex-col">
 
-      {/* <section className="mt-20"> 
-      <h2 className="flex flex-row flex-nowrap items-center mt-10 mb-8">
-          <span className="text-2xl font-bold border-b-2 border-zinc-800 pb-2.5 ml-4">New Produit</span>
-        </h2>
-      <div className="grid grid-cols-3 gap-4 ">
-
-          <div className="bg-white rounded-lg shadow-md md:flex h-40 overflow-hidden ml-5 ">
-            <img src={tshort} alt="Armani Veni Vidi Vici" className="md:w-15"/>
-            <div className="p-4 ">
-              <h3 className="text-lg font-semibold">Armani Veni Vidi Vici</h3>
-              <p className="text-gray-600">Fendi began life in 1925 ...</p>
-              <p className="text-xl font-bold mt-10">$17.99 <span className="text-gray-500 line-through">$20.00</span></p>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md md:flex h-40 overflow-hidden ml-5 ">
-            <img src={tshort} alt="Adidas Shoes Black" className="md:w-15"/>
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">Adidas Shoes Black</h3>
-              <p className="text-gray-600">Men Black top shoes gown</p>
-              <p className="text-xl font-bold mt-10">$45.00 <span className="text-gray-500 line-through">$99.99</span></p>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md md:flex h-40 overflow-hidden ml-5 ">
-            <img src={tshort} alt="Gucci Carlton UK" className="md:w-15"/>
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">Gucci Carlton UK</h3>
-              <p className="text-gray-600">Knitted midi A-line dress....</p>
-              <p className="text-xl font-bold mt-10">$14.99 <span className="text-gray-500 line-through">$19.99</span></p>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md md:flex h-40 overflow-hidden ml-5 ">
-            <img src={tshort} alt="Scuba Stand Collar T..." className="md:w-15"/>
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">Scuba Stand Collar T...</h3>
-              <p className="text-gray-600">Zara provides only the hi...</p>
-              <p className="text-xl font-bold mt-10">$12.00 <span className="text-gray-500 line-through">$16.00</span></p>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md md:flex h-40 overflow-hidden ml-5 ">
-            <img src={tshort} alt="Regular Fit Crew-nec..." className="md:w-15"/>
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">Regular Fit Crew-nec...</h3>
-              <p className="text-gray-600">Self-striped knitted midi ...</p>
-              <p className="text-xl font-bold mt-10">$12.30 <span className="text-gray-500 line-through">$16.38</span></p>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md md:flex h-40 overflow-hidden ml-5 ">
-            <img src={tshort} alt="Hermes Carlton Lon..." className="md:w-15"/>
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">Hermes Carlton Lon...</h3>
-              <p className="text-gray-600">Off-White self-striped kni...</p>
-              <p className="text-xl font-bold mt-10">$15.00</p>
-            </div>
-          </div>
-
-        </div>
-      </section> */}
-
-      <section className="mt-20 ml-10">
-
-      <div class="bg-white p-4">
-  <h2 class="text-2xl font-bold mb-4">Flash Sale</h2>
-  <span class="text-gray-500">Time Over!</span>
-  <div class="grid grid-cols-4 gap-4">
+      <div class="bg-white">
+        <div className='flex justify-between mb-4'>
+          <h2 class="text-2xl font-bold mb-4">Flash Sale</h2>
+          <span class="text-gray-500 text-lg">Time Over!</span>
+      </div>
+  
+  <div class="grid grid-cols-4 gap-10">
     <div>
       <img src={tshort1} alt="Adidas Shoes Black" class="w-80 rounded-lg"/>
       <h3 class="text-lg font-semibold mt-2">Adidas Shoes Black</h3>
@@ -295,6 +217,7 @@ const Index = () => {
     </div>
   </div>
 </div>
+<button className='m-auto mt-10 hover:bg-blue-500 hover:text-white'>Show more</button>
 
       </section>
 
