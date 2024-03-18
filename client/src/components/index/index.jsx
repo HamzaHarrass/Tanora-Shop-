@@ -217,7 +217,7 @@ const Index = () => {
     </div>
   </div>
 </div>
-<button className='m-auto mt-10 hover:bg-blue-500 hover:text-white'>Show more</button>
+<Link to={`/allproduit`}  className='m-auto mt-10 p-2 hover:bg-blue-500 hover:text-white rounded-lg'>Show more</Link>
 
       </section>
 
