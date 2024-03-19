@@ -59,7 +59,6 @@ function AddDesign({ imageUploaded, setImageUploaded }) {
           <p className="text-center">No design uploaded yet.</p>
         )}
       </div>
-      <canvas ref={canvasRef} className="border border-black mt-4"></canvas>
     </>
   );
 }

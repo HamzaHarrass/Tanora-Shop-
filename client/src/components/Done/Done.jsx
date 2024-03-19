@@ -1,4 +1,6 @@
 import React from "react";
+import sweatshirtblack from '../../assets/image/hanes-p360-black.jpg';
+import sweatshirtwhite from '../../assets/image/front.png';
 
 function Done({ selectedColor, setSelectedColor }) {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import Editor from "./Editor";
+import Editor from "../Editor/Editor";
 
 function Item({ selectedColor, setSelectedColor }) {
   return (
