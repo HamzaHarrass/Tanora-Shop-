@@ -89,8 +89,8 @@ function Item({selectedColor,setSelectedColor}){
         <Editor setSelectedColor={setSelectedColor} selectedColor={selectedColor}/>
     </>
 }
-function AddDesign() {
-    const [imageUploaded, setImageUploaded] = useState(false);
+function AddDesign({imageUploaded, setImageUploaded}) {
+    
     const [canvas, setCanvas] = useState(null);
     const canvasRef = useRef(null);
   
@@ -110,12 +110,10 @@ function AddDesign() {
           const imgObj = new Image();
           imgObj.src = event.target.result;
           imgObj.onload = () => {
-            // Nettoyer le canevas avant d'ajouter une nouvelle image
             newCanvas.clear();
-            
             const image = new fabric.Image(imgObj);
             newCanvas.add(image);
-            newCanvas.renderAll(); // Rendre le canevas à jour
+            newCanvas.renderAll(); 
             setImageUploaded(event.target.result);
           };
         };
@@ -154,9 +152,6 @@ function AddDesign() {
             />
           )}
         </div>
-        {/* <div>
-          <canvas ref={canvasRef} />
-        </div> */}
       </>
     );
   }
@@ -260,6 +255,7 @@ function Done({selectedColor,setSelectedColor}){
     </>
 }
 function design() {
+    const [imageUploaded, setImageUploaded] = useState(false);
     const navigate = useNavigate();
     const [activePage, setActive] = useState('Item');
     const [selectedColor, setSelectedColor] = useState('white'); 
@@ -292,7 +288,7 @@ function design() {
         </div>
         <div className="flex-1 flex flex-col gap-2">
             {activePage == 'Item' && <Item setSelectedColor={setSelectedColor} selectedColor={selectedColor}/>}
-            {activePage == 'AddDesign' && <AddDesign/>}
+            {activePage == 'AddDesign' && <AddDesign setImageUploaded={setImageUploaded} imageUploaded={imageUploaded}/>}
             {activePage == 'AddText' && <AddText/>}
             {activePage == 'Done' && <Done setSelectedColor={setSelectedColor} selectedColor={selectedColor}/>}
         </div>
@@ -340,7 +336,8 @@ function design() {
                 </div>
             </div>
         </div>
-        <div className="">
+        <div className="relative">
+        {imageUploaded && <img src={imageUploaded} alt="Uploaded Design" className="absolute h-48" style={{top: '250px' , left :'50%', transform: 'translate(-50%,-50%)'}} />}
           {selectedColor === 'white' && <img className="w-96" src={sweatshirtwhite} alt="sweatshirt blanc" />}
           {selectedColor === 'black' && <img className="w-96" src={sweatshirtblack} alt="sweatshirt noir" />}
         </div>
