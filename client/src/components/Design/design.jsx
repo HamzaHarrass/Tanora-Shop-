@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fabric } from "fabric";
 import sweatshirtblack from '../../assets/image/hanes-p360-black.jpg';
 import sweatshirtwhite from '../../assets/image/front.png';
+import sweatshirtwhite1 from '../../assets/image/25-1000-1400.png';
 
 function Editor({selectedColor,setSelectedColor}){
     const [colorOpen,setColorOpen] = useState(false);
@@ -88,22 +89,78 @@ function Item({selectedColor,setSelectedColor}){
         <Editor setSelectedColor={setSelectedColor} selectedColor={selectedColor}/>
     </>
 }
-function AddDesign (){
-    return <>
+function AddDesign() {
+    const [imageUploaded, setImageUploaded] = useState(false);
+    const [canvas, setCanvas] = useState(null);
+    const canvasRef = useRef(null);
+  
+    useEffect(() => {
+      const newCanvas = new fabric.Canvas(canvasRef.current, {
+        width: 900,
+        height: 900,
+      });
+  
+      setCanvas(newCanvas);
+  
+      const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+  
+        reader.onload = (event) => {
+          const imgObj = new Image();
+          imgObj.src = event.target.result;
+          imgObj.onload = () => {
+            // Nettoyer le canevas avant d'ajouter une nouvelle image
+            newCanvas.clear();
+            
+            const image = new fabric.Image(imgObj);
+            newCanvas.add(image);
+            newCanvas.renderAll(); // Rendre le canevas à jour
+            setImageUploaded(event.target.result);
+          };
+        };
+  
+        reader.readAsDataURL(file);
+      };
+  
+      const inputElement = document.getElementById('designuploader');
+      inputElement.addEventListener('change', handleFileChange);
+  
+      return () => {
+        inputElement.removeEventListener('change', handleFileChange);
+      };
+    }, []);
+  
+    return (
+      <>
         <h3 className="text-2xl font-bold text-center">Your uploaded designs</h3>
         <div className="flex justify-center mb-4">
-            <label htmlFor="designuploader" className="text-lg shadow rounded-lg p-2 font-bold text-center">
+          <label htmlFor="designuploader" className="text-lg shadow rounded-lg p-2 font-bold text-center">
             Upload design from computer
-            </label>
-            <input type="file" className="hidden"  id='designuploader'/>
+          </label>
+          <input type="file" className="hidden" id='designuploader' />
         </div>
-        <h3 className="text-2xl font-semibold text-center">You did not upload any designs yet.
+        <h3 className="text-2xl font-semibold text-center">
+          {imageUploaded ? "Uploaded Design:" : "You did not upload any designs yet."}
         </h3>
         <div>
-            <img src="https://stitched-brand-next.herokuapp.com/assets/images/designer/upload-design.png" alt="" />
+          {imageUploaded ? (
+            <img src={imageUploaded} alt="Uploaded Design" className="max-w-sm" />
+          ) : (
+            <img
+              src="https://stitched-brand-next.herokuapp.com/assets/images/designer/upload-design.png"
+              alt="Upload Design Placeholder"
+              className="max-w-md mx-auto"
+            />
+          )}
         </div>
-    </>
-}
+        {/* <div>
+          <canvas ref={canvasRef} />
+        </div> */}
+      </>
+    );
+  }
+
 function AddText(){
     const canvasRef = useRef(null);
 
@@ -242,7 +299,8 @@ function design() {
         <div>
             <div className="shadow-lg p-5 rounded-2xl flex justify-center"> 
             {selectedColor === 'white' && <img className="h-32" src={sweatshirtwhite} alt="sweatshirt blanc" />}
-          {selectedColor === 'black' && <img className="h-32" src={sweatshirtblack} alt="sweatshirt noir" />}
+            {selectedColor === 'white' && <img className="h-32" src={sweatshirtwhite1} alt="sweatshirt blanc" />}
+            {selectedColor === 'black' && <img className="h-32" src={sweatshirtblack} alt="sweatshirt noir" />}
             </div>
             <div className="shadow-lg p-5 rounded-2xl flex flex-col gap-2">
                 <button className="flex justify-center py-4 hover:bg-gray-200">
