@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState , useEffect , useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { fabric } from "fabric";
 import sweatshirtblack from '../../assets/image/hanes-p360-black.jpg';
 import sweatshirtwhite from '../../assets/image/front.png';
 
@@ -104,6 +105,50 @@ function AddDesign (){
     </>
 }
 function AddText(){
+    const canvasRef = useRef(null);
+
+    useEffect(() => {
+      const canvas = new fabric.Canvas(canvasRef.current, {
+        width: 400,
+        height: 200,
+      });
+  
+      const addText = () => {
+        const text = new fabric.Textbox('Type Something...', {
+          left: 50,
+          top: 50,
+          width: 200,
+          fontSize: 20,
+          fontFamily: 'Arial',
+          fill: '#000000',
+        });
+        canvas.add(text);
+      };
+  
+      const handleColorChange = (e) => {
+        const color = e.target.value;
+        const activeObject = canvas.getActiveObject();
+        if (activeObject && activeObject.type === 'textbox') {
+          activeObject.set('fill', color);
+          canvas.renderAll();
+        }
+      };
+  
+      const handleFontChange = (e) => {
+        const font = e.target.value;
+        const activeObject = canvas.getActiveObject();
+        if (activeObject && activeObject.type === 'textbox') {
+          activeObject.set('fontFamily', font);
+          canvas.renderAll();
+        }
+      };
+  
+      document.getElementById('text-color').addEventListener('input', handleColorChange);
+  
+      return () => {
+        document.getElementById('text-color').removeEventListener('input', handleColorChange);
+      };
+    }, []);
     return <>
         <h3 className="text-2xl font-bold text-center my-2">Add text to your item
         </h3>
@@ -127,6 +172,7 @@ function AddText(){
         </div>
         <div className="flex justify-center py-6">
             <img className="w-96" src="https://stitched-brand-next.herokuapp.com/assets/images/designer/add-text.png" alt="" />
+            <canvas ref={canvasRef}></canvas>
         </div>
     </>
 }
