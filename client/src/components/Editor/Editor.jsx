@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 
-function Editor({ selectedColor, setSelectedColor }) {
-  const [colorOpen, setColorOpen] = useState(false);
-  const [sizeOpen, setSizeOpen] = useState(false);
-  const [decorationOpen, setDecorationOpen] = useState(false);
-  const [quantity, setQuantity] = useState(1);
+function Editor({ selectedColor, setSelectedColor,colorOpen, setColorOpen , sizeOpen, setSizeOpen,decorationOpen, setDecorationOpen ,quantity, setQuantity}) {
 
+  const [sizeSelelctionOpen, setSizeSelectionOpen] = useState(false)
+  const [decorationSelectionOpen, setDecorationSelectedOpen] = useState(false)
   return (
     <div className="flex flex-col items-center p-3 border rounded-xl">
       <div>Testuisns</div>
@@ -16,8 +14,8 @@ function Editor({ selectedColor, setSelectedColor }) {
             <button
               onClick={() => {
                 setColorOpen(!colorOpen);
-                setDecorationOpen(false);
-                setSizeOpen(false);
+                setDecorationSelectedOpen(false);
+                setSizeSelectionOpen(false);
               }}
             >
               <div
@@ -59,65 +57,66 @@ function Editor({ selectedColor, setSelectedColor }) {
         </div>
         <div className="flex items-center gap-2">
           <span className="text-xl">Size:</span>
-          <div className="relative">
+          <div className="relative w-12">
             <button
+             className="w-18"
               onClick={() => {
-                setSizeOpen(!sizeOpen);
-                setDecorationOpen(false);
+                setSizeSelectionOpen(!sizeSelelctionOpen);
+                setDecorationSelectedOpen(false);
                 setColorOpen(false);
               }}
             >
-              XS
+              {sizeOpen}
             </button>
-            {sizeOpen && (
+            {sizeSelelctionOpen && (
               <div className="absolute bg-white shadow rounded-xl p-3 flex items-center gap-2">
-                <div className="h-12 w-12 flex items-center justify-center rounded-lg border-2">
-                  XS
+                <div  className="h-12 w-12 flex items-center justify-center rounded-lg border-2 cursor-pointer" onClick={() => setSizeOpen("xs")}>
+                  xs
                 </div>
-                <div className="h-12 w-12 flex items-center justify-center rounded-lg border-2">
-                  S
+                <div className="h-12 w-12 flex items-center justify-center rounded-lg border-2 cursor-pointer" onClick={() => setSizeOpen("s")}>
+                  s
                 </div>
-                <div className="h-12 w-12 flex items-center justify-center rounded-lg border-2">
+                <div className="h-12 w-12 flex items-center justify-center rounded-lg border-2 cursor-pointer" onClick={() => setSizeOpen("M")}>
                   M
                 </div>
-                <div className="h-12 w-12 flex items-center justify-center rounded-lg border-2">
+                <div className="h-12 w-12 flex items-center justify-center rounded-lg border-2 cursor-pointer" onClick={() => setSizeOpen("L")}>
                   L
                 </div>
-                <div className="h-12 w-12 flex items-center justify-center rounded-lg border-2">
+                <div className="h-12 w-12 flex items-center justify-center rounded-lg border-2 cursor-pointer" onClick={() => setSizeOpen("XL")}>
                   XL
                 </div>
-                <div className="h-12 w-12 flex items-center justify-center rounded-lg border-2">
+                <div className="h-12 w-12 flex items-center justify-center rounded-lg border-2 cursor-pointer" onClick={() => setSizeOpen("XXL")}>
                   XXL
                 </div>
               </div>
             )}
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 ml-3">
           <span className="text-xl">Decoration:</span>
-          <div className="relative">
-            <button
+          <div className="relative ">
+            <button className="w-25"
               onClick={() => {
-                setDecorationOpen(!decorationOpen);
+                setDecorationSelectedOpen(!decorationSelectionOpen);
                 setColorOpen(false);
-                setSizeOpen(false);
+                setSizeSelectionOpen(false);
               }}
             >
-              Printing
+              {decorationOpen}
             </button>
-            {decorationOpen && (
+            {decorationSelectionOpen && (
               <div className="absolute bg-white shadow rounded-xl p-3 flex flex-col items-center gap-2">
-                <div className="p-2 w-full  flex items-center justify-center rounded-lg border-2 text-lg font-semibold">
+                <div className="p-2 w-full  flex items-center justify-center rounded-lg border-2 text-lg font-semibold cursor-pointer" onClick={() => setDecorationOpen("Printing")}>
                   Printing
                 </div>
-                <div className="p-2 w-full  flex items-center justify-center rounded-lg border-2 text-lg font-semibold">
+                <div className="p-2 w-full  flex items-center justify-center rounded-lg border-2 text-lg font-semibold cursor-pointer" onClick={() => setDecorationOpen("Embroidry")}>
                   Embroidry
                 </div>
               </div>
             )}
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 ml-3">
           <span className="text-xl">Quantity:</span>
           <div className="flex overflow-hidden rounded-xl items-center border-black border-2">
             <button
@@ -138,6 +137,7 @@ function Editor({ selectedColor, setSelectedColor }) {
           </div>
         </div>
       </div>
+      
     </div>
   );
 }

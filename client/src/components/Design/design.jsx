@@ -7,6 +7,10 @@ import { useNavigate } from "react-router-dom";
 import sweatshirtwhite from '../../assets/image/front.png';
 
 function design() {
+    const [colorOpen, setColorOpen] = useState(false);
+    const [sizeOpen, setSizeOpen] = useState('s');
+    const [decorationOpen, setDecorationOpen] = useState('Printing');
+    const [quantity, setQuantity] = useState(1);
     const [imageUploaded, setImageUploaded] = useState(false);
     const navigate = useNavigate();
     const [activePage, setActive] = useState('Item');
@@ -39,10 +43,25 @@ function design() {
             </button>
         </div>
         <div className="flex-1 flex flex-col gap-2">
-            {activePage == 'Item' && <Item setSelectedColor={setSelectedColor} selectedColor={selectedColor}/>}
+            {activePage == 'Item' && <Item setSelectedColor={setSelectedColor} selectedColor={selectedColor}
+                colorOpen={colorOpen}
+                setColorOpen={setColorOpen}
+                sizeOpen={sizeOpen}
+                setSizeOpen={setSizeOpen}
+                decorationOpen={decorationOpen}
+                setDecorationOpen={setDecorationOpen}
+                quantity={quantity}
+                setQuantity={setQuantity}
+            />}
             {activePage == 'AddDesign' && <AddDesign setImageUploaded={setImageUploaded} imageUploaded={imageUploaded}/>}
             {activePage == 'AddText' && <AddText/>}
-            {activePage == 'Done' && <Done setSelectedColor={setSelectedColor} selectedColor={selectedColor}/>}
+            {activePage == 'Done' && <Done setSelectedColor={setSelectedColor} selectedColor={selectedColor} 
+                colorOpen={colorOpen}
+                sizeOpen={sizeOpen}
+                decorationOpen={decorationOpen}
+                quantity={quantity}
+
+                />}
         </div>
         <div>
             <div className="shadow-lg p-5 rounded-2xl flex justify-center"> 
