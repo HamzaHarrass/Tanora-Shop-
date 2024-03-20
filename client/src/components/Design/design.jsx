@@ -4,9 +4,7 @@ import AddDesign from "../AddDesign/AddDesign";
 import AddText from "../AddText/AddText";
 import Done from "../Done/Done";
 import { useNavigate } from "react-router-dom";
-import sweatshirtblack from '../../assets/image/hanes-p360-black.jpg';
 import sweatshirtwhite from '../../assets/image/front.png';
-import sweatshirtwhite1 from '../../assets/image/25-1000-1400.png';
 
 function design() {
     const [imageUploaded, setImageUploaded] = useState(false);
@@ -48,9 +46,7 @@ function design() {
         </div>
         <div>
             <div className="shadow-lg p-5 rounded-2xl flex justify-center"> 
-            {selectedColor === 'white' && <img className="h-32" src={sweatshirtwhite} alt="sweatshirt blanc" />}
-            {selectedColor === 'white' && <img className="h-32" src={sweatshirtwhite1} alt="sweatshirt blanc" />}
-            {selectedColor === 'black' && <img className="h-32" src={sweatshirtblack} alt="sweatshirt noir" />}
+            <img className="h-32" src={sweatshirtwhite} alt="sweatshirt blanc" style={{backgroundColor: selectedColor}}/>
             </div>
             <div className="shadow-lg p-5 rounded-2xl flex flex-col gap-2">
                 <button className="flex justify-center py-4 hover:bg-gray-200">
@@ -92,8 +88,9 @@ function design() {
         </div>
         <div className="relative">
         {imageUploaded && <img src={imageUploaded} alt="Uploaded Design" className="absolute h-48" style={{top: '250px' , left :'50%', transform: 'translate(-50%,-50%)'}} />}
-          {selectedColor === 'white' && <img className="w-96" src={sweatshirtwhite} alt="sweatshirt blanc" />}
-          {selectedColor === 'black' && <img className="w-96" src={sweatshirtblack} alt="sweatshirt noir" />}
+           <img className="w-96" src={sweatshirtwhite} alt="sweatshirt blanc" style={{backgroundColor: selectedColor}}/>
+          {/* {selectedColor === 'white' && <img className="w-96" src={sweatshirtwhite} alt="sweatshirt blanc" style={{backgroundColor: selectedColor}}/>} */}
+          {/* {selectedColor === 'black' && <img className="w-96" src={sweatshirtblack} alt="sweatshirt noir"  />} */}
         </div>
       </section>
     </div>

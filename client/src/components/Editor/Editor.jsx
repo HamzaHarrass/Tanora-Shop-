@@ -21,13 +21,10 @@ function Editor({ selectedColor, setSelectedColor }) {
               }}
             >
               <div
-                className={`h-5 w-5 border-2 border-black rounded-lg ${
-                  selectedColor === "white"
-                    ? "bg-white"
-                    : selectedColor === "black"
-                    ? "bg-black"
-                    : ""
-                }`}
+                className={`h-5 w-5 border-2 border-black rounded-lg 
+                
+                `}
+                style={{backgroundColor : selectedColor}}
               ></div>
             </button>
             {colorOpen && (
@@ -39,6 +36,22 @@ function Editor({ selectedColor, setSelectedColor }) {
                 <button
                   className="h-8 w-8 border-2 border-white rounded-lg bg-black"
                   onClick={() => setSelectedColor("black")}
+                ></button>
+                <button
+                  className="h-8 w-8 border-2 border-white rounded-lg bg-red-700"
+                  onClick={() => setSelectedColor("red")}
+                ></button>
+                <button
+                  className="h-8 w-8 border-2 border-white rounded-lg bg-green-600"
+                  onClick={() => setSelectedColor("green")}
+                ></button>
+                <button
+                  className="h-8 w-8 border-2 border-white rounded-lg bg-purple-600"
+                  onClick={() => setSelectedColor("purple")}
+                ></button>
+                <button
+                  className="h-8 w-8 border-2 border-white rounded-lg bg-pink-600"
+                  onClick={() => setSelectedColor("pink")}
                 ></button>
               </div>
             )}
