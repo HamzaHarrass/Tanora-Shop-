@@ -108,8 +108,6 @@ function design() {
         <div className="relative">
         {imageUploaded && <img src={imageUploaded} alt="Uploaded Design" className="absolute h-48" style={{top: '250px' , left :'50%', transform: 'translate(-50%,-50%)'}} />}
            <img className="w-96" src={sweatshirtwhite} alt="sweatshirt blanc" style={{backgroundColor: selectedColor}}/>
-          {/* {selectedColor === 'white' && <img className="w-96" src={sweatshirtwhite} alt="sweatshirt blanc" style={{backgroundColor: selectedColor}}/>} */}
-          {/* {selectedColor === 'black' && <img className="w-96" src={sweatshirtblack} alt="sweatshirt noir"  />} */}
         </div>
       </section>
     </div>
