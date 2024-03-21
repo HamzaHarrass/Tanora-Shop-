@@ -9,21 +9,22 @@ import AllOrder from "./components/AllOrder/AllOrder"
 import Login from "./components/Auth/Login"
 import Register from "./components/Auth/Register"
 import Auth from "./components/Auth"
+import AuthRoute from "./components/AuthRoute/AuthRoute"
 
 function App() {
   return (
     <React.StrictMode>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/allproduit" element={<AllProduit />} />
-          <Route path="/dashboard" element={<Produit />} />
-          <Route path="/order" element={<Order />} />
-          <Route path="/allorder" element={<AllOrder />} />
-          <Route path="/design" element={<Design />} />
-          <Route path="/auth" element={<Auth/>}>
-           <Route path="/auth/register" element={<Register />} />
-           <Route path="/auth/login" element={<Login />} />
+          <Route path="/" element= {<AuthRoute element={<Index />} roles={["admin" , "user"]} />} />
+          <Route path="/produit" element={<AuthRoute element={<AllProduit />} roles={["admin" , "user"]} />} />
+          <Route path="/dashboard" element={<AuthRoute element={<Produit />} roles={["admin"]} />} />
+          <Route path="/order" element={<AuthRoute element={<Order />} roles={["user"]} />} />
+          <Route path="/allorder" element={<AuthRoute element={<AllOrder />} roles={["admin"]} />}/>
+          <Route path="/design" element= {<AuthRoute element={<Design />}  roles={["admin" , "user"]} />}/>
+          <Route path="/auth" element={<AuthRoute element={<Auth />}  roles={["admin" , "user"]} />}>
+           <Route path="/auth/register" element={<AuthRoute element={<Register />}  roles={["admin" , "user"]} />} />
+           <Route path="/auth/login" element={<AuthRoute element={<Login />}  roles={["admin" , "user"]} />} />
           </Route>
         </Routes>
       </BrowserRouter>

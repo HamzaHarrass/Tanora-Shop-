@@ -1,10 +1,10 @@
-import React, { useState } from 'react';  // Import useState hook
+import React, { useState } from 'react';  
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from 'react-icons/fa';
 import logo from '../../assets/image/1e2f5cd0-2280-4816-ac4d-ffcbeabeb8c9.png';
 
 function navbar() {
-  const [cart, setCart] = useState([]);  // Initialize cart state
+  const [cart, setCart] = useState([]); 
   const [showCart, setShowCart] = useState(false);
 
   const toggleCart = () => {
@@ -59,7 +59,7 @@ function navbar() {
                   aria-current="page">Home</Link>
               </li>
               <li>
-                <Link to={`/allproduit`} href="#"
+                <Link to={`/produit`} href="#"
                   className="block py-2 pl-3 pr-4 text-gray-700 border-b text-base border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
                     Shop
                 </Link>
