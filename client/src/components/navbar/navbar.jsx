@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react';  // Import useState hook
 import { Link } from "react-router-dom";
+import { FaShoppingCart } from 'react-icons/fa';
 import logo from '../../assets/image/1e2f5cd0-2280-4816-ac4d-ffcbeabeb8c9.png';
 
 function navbar() {
+  const [cart, setCart] = useState([]);  // Initialize cart state
+  const [showCart, setShowCart] = useState(false);
+
+  const toggleCart = () => {
+    setShowCart(!showCart);
+  };
   return (
     <div>
       <nav className="py-2.5 mt-5">
@@ -15,6 +22,14 @@ function navbar() {
               <span></span>
             </div>
             <div className="flex grid-cols-2 gap-5">
+              <button href="#" className="">
+                    <div className="relative" onClick={toggleCart}>
+                    <FaShoppingCart className="text-black text-2xl cursor-pointer" />
+                    <span className="absolute left-5 bg-red-500 text-white rounded-full px-1 py-0 text-sm">
+                      {cart.length}
+                    </span>
+                 </div>
+              </button>
               <Link to={`/auth/register`} href="https://themesberg.com/product/tailwind-css/landing-page"
                 className="text-white bg-black hover:bg-gray-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-base px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-black dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-purple-800">
                 sign-up
