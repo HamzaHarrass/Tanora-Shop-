@@ -50,11 +50,14 @@ const Order = ({ userId }) => {
             <h4 className="text-lg font-semibold mt-4">Products:</h4>
             <ul className="list-disc list-inside">
               {order.produits.map((item) => (
+                
                 <li key={item.produit._id} className="ml-4">
+                  <img src={`http://localhost:3000/uploads/${item.produit.image}`} alt={item.produit.name} className="w-20 object-cover object-center rounded-lg shadow-md"/>    
                   {item.produit.name} - Quantity: {item.quantity}
                 </li>
               ))}
             </ul>
+            
             <p className="text-lg font-bold">
               Total: ${order.produits.reduce((total, item) => total + item.produit.prix * item.quantity, 0)}
             </p>
@@ -67,3 +70,4 @@ const Order = ({ userId }) => {
 };
 
 export default Order;
+  
