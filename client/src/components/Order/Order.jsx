@@ -46,7 +46,7 @@ const Order = ({ userId }) => {
     <>    
     <Navbar/>
     <section>
-      <div className="relative py-24 2xl:pb-44 bg-gray-200 rounded-b-9xl overflow-hidden">
+      <div className="relative py-24 2xl:pb-44  rounded-b-9xl overflow-hidden">
         <div className="relative container px-4 mx-auto z-10">
         <svg className="mb-6 xl:mb-10 mx-auto" width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_553_1414)">
@@ -77,9 +77,9 @@ const Order = ({ userId }) => {
           <div key={order._id} className="mx-auto max-w-2xl mt-10">
             <h3 className="mb-2 text-xl font-heading font-medium">What you ordered: {order._id}</h3>
             {order.produits.map((item) => (
-            <div className="sm:flex sm:items-center p-10 xl:py-5 xl:px-12 mb-3 bg-white rounded-3xl">
+            <div className="sm:flex sm:items-center p-10 xl:py-5 xl:px-12 mb-3 bg-gray-100 rounded-3xl">
               <a href="#">
-                <img className="h-28 mb-6 sm:mb-0 sm:mr-12 mx-auto sm:ml-0 object-cover" src={`http://localhost:3000/uploads/${item.produit.image}`} alt=""/>
+                <img className="h-28 mb-6 sm:mb-0 sm:mr-12 mx-auto sm:ml-0 object-cover rounded-xl" src={`http://localhost:3000/uploads/${item.produit.image}`} alt=""/>
               </a>
               <div>
                 <a className="inline-block mb-1 text-lg hover:underline font-heading font-medium" href="#"> {item.produit.name}</a>
