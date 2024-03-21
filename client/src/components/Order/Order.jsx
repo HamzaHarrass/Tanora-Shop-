@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Navbar from '../navbar/navbar';
+import background from '../../assets/image/bg.png';
+
 
 const Order = ({ userId }) => {
   const [orders, setOrders] = useState([]);
@@ -8,6 +11,7 @@ const Order = ({ userId }) => {
     const fetchOrders = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/orders`);
+        console.log(response)
         setOrders(response.data.orders);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -39,35 +43,75 @@ const Order = ({ userId }) => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-4">Orders for User ID: {userId}</h2>
-      <ul>
-        {orders.map((order) => (
-          <li key={order._id} className="border rounded-lg p-4 mb-4">
-            <p className="font-bold">Order ID: {order._id}</p>
-            <p>Status: {order.status}</p>
-            <p>Created At: {new Date(order.createdAt).toLocaleString()}</p>
-            <h4 className="text-lg font-semibold mt-4">Products:</h4>
-            <ul className="list-disc list-inside">
-              {order.produits.map((item) => (
-                
-                <li key={item.produit._id} className="ml-4">
-                  <img src={`http://localhost:3000/uploads/${item.produit.image}`} alt={item.produit.name} className="w-20 object-cover object-center rounded-lg shadow-md"/>    
-                  {item.produit.name} - Quantity: {item.quantity}
-                </li>
-              ))}
-            </ul>
-            
-            <p className="text-lg font-bold">
-              Total: ${order.produits.reduce((total, item) => total + item.produit.prix * item.quantity, 0)}
-            </p>
+    <>    
+    <Navbar/>
+    <section>
+      <div className="relative py-24 2xl:pb-44 bg-gray-200 rounded-b-9xl overflow-hidden">
+        <div className="relative container px-4 mx-auto z-10">
+        <svg className="mb-6 xl:mb-10 mx-auto" width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_553_1414)">
+        <rect width="52" height="52" rx="26" fill="#136EFC"/>
+        <circle cx="221" cy="237" r="279" fill="url(#paint0_linear_553_1414)"/>
+        <circle cx="322" cy="94" r="290" fill="url(#paint1_linear_553_1414)"/>
+        <circle cx="26" cy="26" r="22" fill="#EFF3F9"/>
+        <rect x="8" y="8" width="36" height="36" rx="18" fill="white"/>
+        <path d="M24.2418 32.4999L18.334 26.732L19.1142 25.9703L24.2418 30.9764L34.8871 20.5833L35.6673 21.345L24.2418 32.4999Z" fill="#326BFF"/>
+        </g>
+        <defs>
+        <linearGradient id="paint0_linear_553_1414" x1="59.8534" y1="486.176" x2="380.222" y2="486.176" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#FF7611"/>
+        <stop offset="1" stop-color="white" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="paint1_linear_553_1414" x1="322" y1="-46.5" x2="322" y2="353" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#7534FF"/>
+        <stop offset="1" stop-color="#7534FF" stop-opacity="0"/>
+        </linearGradient>
+        <clipPath id="clip0_553_1414">
+        <rect width="52" height="52" rx="26" fill="white"/>
+        </clipPath>
+        </defs>
+        </svg>
+          <h2 className="mb-5 xl:mb-10 text-9xl xl:text-10xl leading-normal font-heading font-medium text-center">Thanks for your order</h2>
+          <p className="mb-14 xl:mb-20 text-lg text-darkBlueGray-400 font-heading text-center">We hope you enjoyed shopping with us.</p>
+          {orders.map((order) => (
+          <div key={order._id} className="mx-auto max-w-2xl mt-10">
+            <h3 className="mb-2 text-xl font-heading font-medium">What you ordered: {order._id}</h3>
+            {order.produits.map((item) => (
+            <div className="sm:flex sm:items-center p-10 xl:py-5 xl:px-12 mb-3 bg-white rounded-3xl">
+              <a href="#">
+                <img className="h-28 mb-6 sm:mb-0 sm:mr-12 mx-auto sm:ml-0 object-cover" src={`http://localhost:3000/uploads/${item.produit.image}`} alt=""/>
+              </a>
+              <div>
+                <a className="inline-block mb-1 text-lg hover:underline font-heading font-medium" href="#"> {item.produit.name}</a>
+                <div className="flex flex-wrap">
+                  <p className="mr-4 text-sm font-medium">
+                    <span className="font-heading">Color:</span>
+                    <span className="ml-2 text-gray-400"> {item.produit.color}</span>
+                  </p>
+                  <p className="text-sm font-medium">
+                    <span>Qty:</span>
+                    <span className="ml-2 text-gray-400"> {item.quantity}</span>
+                  </p>
+                </div>
+              </div>
+            </div>    
+            ))}
+            <div className="sm:max-w-max sm:ml-auto">
+              <p className="flex items-center justify-between font-heading font-medium">
+                <span className="mr-16">Total</span>
+                <span className="flex items-center">
+                  <span className="text-3xl text-blue-500">${order.produits.reduce((total, item) => total + item.produit.prix * item.quantity, 0)}</span>
+                </span>
+              </p>
+            </div>
             {renderStatusStepper(order)}
-          </li>
-        ))}
-      </ul>
-    </div>
+          </div>))}
+        </div>
+        <img className="hidden sm:block absolute bottom-0 right-0 -mr-12 lg:-mr-24" src={background} alt=""/>
+      </div>
+    </section>
+    </>
   );
 };
 
 export default Order;
-  
