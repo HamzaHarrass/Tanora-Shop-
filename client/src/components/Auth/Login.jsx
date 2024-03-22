@@ -33,8 +33,18 @@ const Login = () => {
       const response = await axios.post('http://localhost:3000/auth/login', formData);
       console.log(response);
       Cookies.set('token', response.data.access_token, { expires: 7 }); 
+
+      const isAdmin = response.data.user.role === 'admin';
+      Cookies.set('role', isAdmin ? 'admin' : 'user');
+
       setError(null);
-      navigate('/dashboard');
+
+      if(isAdmin){
+        navigate('/dashboard');
+      }else{
+        navigate('/');
+      }
+      
     } catch (error) {
       console.error(error);
       setError('Login failed. Please check your credentials and try again.');

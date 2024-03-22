@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/produit" element={<AllProduit />} />
-          <Route path="/dashboard" element={<AuthRoute element={<Produit />} roles={["admin"]} />} />
+          <Route path="/dashboard" element={<AuthRoute element={<Produit />} roles={["admin"]} />}/>
           <Route path="/order" element={<AuthRoute element={<Order />} roles={["user"]} />} />
           <Route path="/allorder" element={<AuthRoute element={<AllOrder />} roles={["admin"]} />} />
           <Route path="/design" element={<Design />} />
