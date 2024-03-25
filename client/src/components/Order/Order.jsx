@@ -148,7 +148,7 @@ const Order = ({ userId }) => {
               </div>
             ))}
           </div>
-          <img className="sm:block fixed bottom-0 right-0 -mr-12 lg:-mr-24" src={background} alt="" />
+          <img className="sm:block fixed right-0 -mr-12 lg:-mr-24" style={{bottom:'-100px'}} src={background} alt="" />
         </div>
       </section>
     </>

@@ -15,9 +15,8 @@ function Navbar({showCart, setShowCart, cart}) {
     Cookies.remove("token");
     Cookies.remove("role");
     navigate('/auth/login')
-
   };
-  useEffect (()=>{console.log(cart);},[cart])
+
 
   return (
     <div>
