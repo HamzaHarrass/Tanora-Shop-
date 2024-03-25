@@ -129,6 +129,10 @@ const Order = ({ userId }) => {
                           <span>Status:</span>
                           <span className="ml-2 text-gray-400 "> {order.status}</span>
                         </p>
+                        <p className="text-sm font-medium ml-4">
+                          <span>Prix:</span>
+                          <span className="ml-2 text-gray-400 "> {item.produit.prix*item.quantity}</span>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -141,11 +145,11 @@ const Order = ({ userId }) => {
                     </span>
                   </p>
                 </div>
-                {renderStatusStepper(order)}
+                {/* {renderStatusStepper(order)} */}
               </div>
             ))}
           </div>
-          <img className="hidden sm:block absolute bottom-0 right-0 -mr-12 lg:-mr-24" src={background} alt="" />
+          <img className="sm:block fixed bottom-0 right-0 -mr-12 lg:-mr-24" src={background} alt="" />
         </div>
       </section>
     </>
