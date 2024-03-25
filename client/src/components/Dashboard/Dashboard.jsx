@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../../assets/image/1e2f5cd0-2280-4816-ac4d-ffcbeabeb8c9.png'; 
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 axios.defaults.withCredentials = true;
 
 const Produit = () => {
@@ -90,36 +91,39 @@ const Produit = () => {
 
   return (
     <>
-      <nav className="bg-gray-100 border-gray-200 py-2.5 dark:bg-gray-900">
-        <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
-          <a href="#" className="flex items-center">
-            <img src={logo} className="h-6 mr-3 sm:h-9" alt="mochtara Logo"/>
-          </a>
-        </div>
-      </nav>
-
-      <div className="container mx-auto">
+      
+      <div className="container mx-auto px-8">
         <h1 className="text-2xl font-bold mt-8 mb-4">Product Management System</h1>
 
-        <div className="product-list">
-          <h2 className="text-xl font-semibold mb-4">Products</h2>
-          <button onClick={() => setShowAddPopup(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <div className="product-list flex flex-col">
+          <button onClick={() => setShowAddPopup(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-max ml-auto">
             Add Product
           </button>
 
           <table className="w-full border-collapse mt-4">
+            <thead className='bg-gray-700 '>
+              <tr className=''>
+                <td className='py-2 text-center text-white font-bold '>Name</td>
+                <td className='py-2 text-center text-white font-bold '>Size</td>
+                <td className='py-2 text-center text-white font-bold '>Price</td>
+                <td className='py-2 text-center text-white font-bold '>Category</td>
+                <td className='py-2 text-center text-white font-bold '>Color</td>
+                <td className='py-2 text-center text-white font-bold '>Image</td>
+                <td className='py-2 text-center text-white font-bold '>Events</td>
+              </tr>
+            </thead>
             <tbody>
               {products.map((product, index) => (
-                <tr key={index} className="border border-gray-300">
-                  <td className="border border-gray-300 px-4 py-2">{product.name}</td>
-                  <td className="border border-gray-300 px-4 py-2">{product.size}</td>
-                  <td className="border border-gray-300 px-4 py-2">{product.prix} DH</td>
-                  <td className="border border-gray-300 px-4 py-2">{product.category}</td>
-                  <td className="border border-gray-300 px-4 py-2">{product.color}</td>
-                  <td className="border border-gray-300 px-4 py-2">
+                <tr key={index} className="border border-gray-300 rounded-lg">
+                  <td className="text-center border border-gray-300 px-4 py-2">{product.name}</td>
+                  <td className="text-center border border-gray-300 px-4 py-2">{product.size}</td>
+                  <td className="text-center border border-gray-300 px-4 py-2">{product.prix} DH</td>
+                  <td className="text-center border border-gray-300 px-4 py-2">{product.category}</td>
+                  <td className="text-center border border-gray-300 px-4 py-2">{product.color}</td>
+                  <td className="text-center border border-gray-300 px-4 py-2">
                     <img src={`http://localhost:3000/uploads/${product.image}`} alt={product.name} className="h-12 w-12 object-cover" />
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
+                  <td className="text-center border border-gray-300 px-4 py-2">
                     <button onClick={() => { setUpdateProduct({ id: product._id, name: product.name, size: product.size, prix: product.prix, image: product.image, category: product.category, color: product.color }); setShowUpdatePopup(true); }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2">
                       Update
                     </button>
@@ -139,14 +143,14 @@ const Produit = () => {
             <div className="bg-white rounded-lg p-8 max-w-md w-full">
               <h3 className="text-lg font-semibold mb-4">Add Product</h3>
               <form encType="multipart/form-data">
-                <div>
-                  <label htmlFor="name">Name:</label>
-                  <input type="text" id="name" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
+                <div className='flex flex-col py-1 gap-1'>
+                  <label htmlFor="name">Name</label>
+                  <input type="text" id="name" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} className="bg-gray-100 py-2 px-2 rounded-lg " />
                 
                 </div>
-                <div>
+                <div className='flex flex-col py-1 gap-1'>
                 <label htmlFor="size">Size:</label>
-                <select type="text" id="size" value={newProduct.size} onChange={(e) => setNewProduct({ ...newProduct, size: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded">
+                <select type="text" id="size" value={newProduct.size} onChange={(e) => setNewProduct({ ...newProduct, size: e.target.value })} className="bg-gray-100 py-2 px-2 rounded-lg">
                   <option value="s">s</option>
                   <option value="m">m</option>
                   <option value="l">l</option>
@@ -154,28 +158,28 @@ const Produit = () => {
                   <option value="xxl">xxl</option>
                 </select>
                 </div>
-                <div>
+                <div className='flex flex-col py-1 gap-1'>
                 <label htmlFor="prix">Price:</label>
-                <input type="text" id="prix" value={newProduct.prix} onChange={(e) => setNewProduct({ ...newProduct, prix: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
+                <input type="text" id="prix" value={newProduct.prix} onChange={(e) => setNewProduct({ ...newProduct, prix: e.target.value })} className="bg-gray-100 py-2 px-2 rounded-lg" />
                 </div>
-                <div>
+                <div className='flex flex-col py-1 gap-1'>
                 <label htmlFor="category">Category:</label>
-                <select type="text" id="category" value={newProduct.category} onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded">
+                <select type="text" id="category" value={newProduct.category} onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })} className="bg-gray-100 py-2 px-2 rounded-lg">
                   <option value="t-shirt">t-shirt</option>
                   <option value="Streetwear">Streetwear</option>
                   <option value="sweatshirt">sweatshirt</option>
                   <option value="sweat">sweat</option>
                 </select>
                 </div>
-                <div>
+                <div className='flex flex-col py-1 gap-1'>
                 <label htmlFor="color">Color:</label>
-                <input type="text" id="color" value={newProduct.color} onChange={(e) => setNewProduct({ ...newProduct, color: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
+                <input type="text" id="color" value={newProduct.color} onChange={(e) => setNewProduct({ ...newProduct, color: e.target.value })} className="bg-gray-100 py-2 px-2 rounded-lg" />
                 </div>
-                <div>
+                <div className='flex flex-col py-1 gap-1'>
                 <label htmlFor="image">Image:</label>
-                <input type="file" id="image" onChange={(e) => setNewProduct({ ...newProduct, image: e.target.files[0] })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
+                <input type="file" id="image" onChange={(e) => setNewProduct({ ...newProduct, image: e.target.files[0] })} className="bg-gray-100 py-2 px-2 rounded-lg" />
                 </div>
-                <div className="flex justify-end">
+                <div className="flex justify-end pt-4">
                   <button type="button" onClick={handleAddProduct} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
                     Add Product
                   </button>
@@ -196,10 +200,10 @@ const Produit = () => {
               <form encType="multipart/form-data">
                 <div>
                 <label htmlFor="name">Name:</label>
-                <input type="text" id="name" value={updateProduct.name} onChange={(e) => setUpdateProduct({ ...updateProduct, name: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
+                <input type="text" id="name" value={updateProduct.name} onChange={(e) => setUpdateProduct({ ...updateProduct, name: e.target.value })} className="border border-gray-300 py-2  px-3 py-1 mb-2 rounded" />
                 </div>
                 <div><label htmlFor="size">Size:</label>
-                <select type="text" id="size" value={updateProduct.size} onChange={(e) => setUpdateProduct({ ...updateProduct, size: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" >
+                <select type="text" id="size" value={updateProduct.size} onChange={(e) => setUpdateProduct({ ...updateProduct, size: e.target.value })} className="border border-gray-300 py-2  px-3 py-1 mb-2 rounded" >
                 <option value="s">s</option>
                 <option value="m">m</option>
                 <option value="l">l</option>
@@ -208,11 +212,11 @@ const Produit = () => {
                 </select>
                 </div>
                 <div><label htmlFor="prix">Price:</label>
-                <input type="text" id="prix" value={updateProduct.prix} onChange={(e) => setUpdateProduct({ ...updateProduct, prix: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
+                <input type="text" id="prix" value={updateProduct.prix} onChange={(e) => setUpdateProduct({ ...updateProduct, prix: e.target.value })} className="border border-gray-300 py-2 px-3 py-1 mb-2 rounded" />
                 </div>
                 <div>
                 <label htmlFor="category">Category:</label>
-                <select type="text" id="category" value={updateProduct.category} onChange={(e) => setUpdateProduct({ ...updateProduct, category: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded">
+                <select type="text" id="category" value={updateProduct.category} onChange={(e) => setUpdateProduct({ ...updateProduct, category: e.target.value })} className="border border-gray-300 py-2 px-3 py-1 mb-2 rounded">
                   <option value="t-shirt">t-shirt</option>
                   <option value="Streetwear">Streetwear</option>
                   <option value="sweatshirt">sweatshirt</option>
@@ -220,10 +224,10 @@ const Produit = () => {
                 </select>
                 </div>
                 <div><label htmlFor="color">Color:</label>
-                <input type="text" id="color" value={updateProduct.color} onChange={(e) => setUpdateProduct({ ...updateProduct, color: e.target.value })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
+                <input type="text" id="color" value={updateProduct.color} onChange={(e) => setUpdateProduct({ ...updateProduct, color: e.target.value })} className="border border-gray-300 py-2 px-3 py-1 mb-2 rounded" />
                 </div>
                 <div><label htmlFor="image">Image:</label>
-                <input type="file" id="image" onChange={(e) => setUpdateProduct({ ...updateProduct, image: e.target.files[0] })} className="border border-gray-300 px-3 py-1 mb-2 rounded" />
+                <input type="file" id="image" onChange={(e) => setUpdateProduct({ ...updateProduct, image: e.target.files[0] })} className="border border-gray-300 py-2 px-3 py-1 mb-2 rounded" />
                 </div>
                 <div className="flex justify-end">
                   <button type="button" onClick={handleUpdateProduct} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
@@ -238,6 +242,7 @@ const Produit = () => {
           </div>
         )}
       </div>
+      
     </>
   );
 };

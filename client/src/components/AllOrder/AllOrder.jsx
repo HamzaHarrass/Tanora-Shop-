@@ -43,18 +43,18 @@ const AllOrder = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">All Orders</h1>
-      <ul>
+      <ul className='flex gap-4 flex-wrap'>
         {orders.map((order) => (
-          <li key={order._id} className="border rounded p-4 mb-4">
-            <h3 className="text-xl font-bold">Order ID: {order._id}</h3>
+          <li key={order._id} className="rounded p-4 mb-4 flex-1 bg-green-100 shadow-lg relative flex flex-col gap-3" style={{minWidth:'400px', maxWidth:'440px'}}>
+            <div className='absolute top-4 right-8 bg-blue-500 text-white rounded-lg py-1 px-3'> {order.status}</div>
+            <h3 className="text-xl font-bold" style={{maxWidth:'25ch', textOverflow: 'ellipsis' , overflow:'hidden', whiteSpace: 'nowrap'}}>Order ID: {order._id}</h3>
             <p className="text-gray-600">
-              User Name: {order.user ? order.user.nom : 'Unknown User'}
+              by: {order.user ? order.user.nom : 'Unknown User'}
             </p>
-            <p className="text-gray-600">Status: {order.status}</p>
             <h4 className="text-lg font-semibold mt-2">Products:</h4>
-            <ul>
+            <ul className='flex flex-col gap-4'>
               {order.produits.map((produit) => (
-                <li key={produit._id} className="border-t mt-2 pt-2">
+                <li key={produit._id} className="mt-2 pt-2 bg-white px-3 rounded-xl pb-2 shadow-xl  ">
                   <p className="text-lg font-medium">
                     Name: {produit.produit ? produit.produit.name : 'Unknown Product'}
                   </p>
@@ -64,7 +64,7 @@ const AllOrder = () => {
             </ul>
             <button
               onClick={() => openPopup(order._id,order.status)}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 w-max ml-auto mt-auto"
             >
               Update Status
             </button>
