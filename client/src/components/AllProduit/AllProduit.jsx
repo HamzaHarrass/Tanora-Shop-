@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../navbar/navbar';
-import logocomplet from '../../assets/image/be9fbf92-c05c-4103-a74f-9505fe9830cc.png';
+import Footer from '../Footer/footer';
 import Cart from '../Cart/Cart';
 
 const AllProduit = () => {
@@ -156,9 +156,7 @@ const AllProduit = () => {
         </div>
       </div>
       
-      <footer className="mt-20">
-        {/* Your footer content */}
-      </footer>
+      <Footer/>
     </div>
   );
 };

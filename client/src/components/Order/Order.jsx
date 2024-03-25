@@ -79,7 +79,7 @@ const Order = ({ userId }) => {
         <div className="relative py-24 2xl:pb-44 rounded-b-9xl overflow-hidden">
           <div className="relative container px-4 mx-auto z-10">
             <svg className="mb-6 xl:mb-10 mx-auto" width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0_553_1414)">
+              <g clipPath="url(#clip0_553_1414)">
                 <rect width="52" height="52" rx="26" fill="#136EFC" />
                 <circle cx="221" cy="237" r="279" fill="url(#paint0_linear_553_1414)" />
                 <circle cx="322" cy="94" r="290" fill="url(#paint1_linear_553_1414)" />
@@ -89,12 +89,12 @@ const Order = ({ userId }) => {
               </g>
               <defs>
                 <linearGradient id="paint0_linear_553_1414" x1="59.8534" y1="486.176" x2="380.222" y2="486.176" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#FF7611" />
-                  <stop offset="1" stop-color="white" stop-opacity="0" />
+                  <stop stopColor="#FF7611" />
+                  <stop offset="1" stopColor="white" stopOpacity="0" />
                 </linearGradient>
                 <linearGradient id="paint1_linear_553_1414" x1="322" y1="-46.5" x2="322" y2="353" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#7534FF" />
-                  <stop offset="1" stop-color="#7534FF" stop-opacity="0" />
+                  <stop stopColor="#7534FF" />
+                  <stop offset="1" stopColor="#7534FF" stopOpacity="0" />
                 </linearGradient>
                 <clipPath id="clip0_553_1414">
                   <rect width="52" height="52" rx="26" fill="white" />
@@ -131,7 +131,7 @@ const Order = ({ userId }) => {
                         </p>
                         <p className="text-sm font-medium ml-4">
                           <span>Prix:</span>
-                          <span className="ml-2 text-gray-400 "> {item.produit.prix*item.quantity}</span>
+                          <span className="ml-2 text-gray-400 "> {item.produit.prix * item.quantity}</span>
                         </p>
                       </div>
                     </div>
@@ -145,7 +145,6 @@ const Order = ({ userId }) => {
                     </span>
                   </p>
                 </div>
-                {/* {renderStatusStepper(order)} */}
               </div>
             ))}
           </div>

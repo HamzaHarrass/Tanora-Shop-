@@ -102,60 +102,60 @@ const Index = () => {
       </section>
       <section className="m-20 p-20 pt-10 border-2 rounded-lg flex flex-col">
 
-      <div class="bg-white">
+      <div className="bg-white">
         <div className='flex justify-between mb-4'>
-          <h2 class="text-2xl font-bold mb-4">Flash Sale</h2>
-          <span class="text-gray-500 text-lg">Time Over!</span>
+          <h2 className="text-2xl font-bold mb-4">Flash Sale</h2>
+          <span className="text-gray-500 text-lg">Time Over!</span>
       </div>
   
-  <div class="grid grid-cols-4 gap-10">
+  <div className="grid grid-cols-4 gap-10">
     <div>
-      <img src={tshort1} alt="Adidas Shoes Black" class="w-80 rounded-lg"/>
-      <h3 class="text-lg font-semibold mt-2">Adidas Shoes Black</h3>
-      <p class="text-gray-600">Men Black top sleeveless gown</p>
-      <p class="text-lg font-bold">$45.00 <span class="text-gray-500 line-through">$99.99</span></p>
+      <img src={tshort1} alt="Adidas Shoes Black" className="w-80 rounded-lg"/>
+      <h3 className="text-lg font-semibold mt-2">Adidas Shoes Black</h3>
+      <p className="text-gray-600">Men Black top sleeveless gown</p>
+      <p className="text-lg font-bold">$45.00 <span className="text-gray-500 line-through">$99.99</span></p>
     </div>
     <div>
-      <img src={tshort} alt="Armani Wide-Leg Trousers" class="w-80 rounded-lg"/>
-      <h3 class="text-lg font-semibold mt-2">Armani Wide-Leg Trousers</h3>
-      <p class="text-gray-600">Monochrome elegance. Made with a...</p>
-      <p class="text-lg font-bold">$12.00 <span class="text-gray-500 line-through">$19.99</span></p>
+      <img src={tshort} alt="Armani Wide-Leg Trousers" className="w-80 rounded-lg"/>
+      <h3 className="text-lg font-semibold mt-2">Armani Wide-Leg Trousers</h3>
+      <p className="text-gray-600">Monochrome elegance. Made with a...</p>
+      <p className="text-lg font-bold">$12.00 <span className="text-gray-500 line-through">$19.99</span></p>
     </div>
     <div>
-      <img src={tshort1} alt="Zara Shoes Green" class="w-80 rounded-lg"/>
-      <h3 class="text-lg font-semibold mt-2">Zara Shoes Green</h3>
-      <p class="text-gray-600">Footwear refers to garments worn o...</p>
-      <p class="text-lg font-bold">$50.00</p>
+      <img src={tshort1} alt="Zara Shoes Green" className="w-80 rounded-lg"/>
+      <h3 className="text-lg font-semibold mt-2">Zara Shoes Green</h3>
+      <p className="text-gray-600">Footwear refers to garments worn o...</p>
+      <p className="text-lg font-bold">$50.00</p>
     </div>
     <div>
-      <img src={tshort} alt="Wayfarer Sunglasses" class="w-80 rounded-lg"/>
-      <h3 class="text-lg font-semibold mt-2">Wayfarer Sunglasses</h3>
-      <p class="text-gray-600">Our optical engineers developed the...</p>
-      <p class="text-lg font-bold">$15.00 <span class="text-gray-500 line-through">$18.99</span></p>
+      <img src={tshort} alt="Wayfarer Sunglasses" className="w-80 rounded-lg"/>
+      <h3 className="text-lg font-semibold mt-2">Wayfarer Sunglasses</h3>
+      <p className="text-gray-600">Our optical engineers developed the...</p>
+      <p className="text-lg font-bold">$15.00 <span className="text-gray-500 line-through">$18.99</span></p>
     </div>
     <div>
-    <img src={tshort1} alt="Armani Wide-Leg Trousers" class="w-80 rounded-lg"/>
-      <h3 class="text-lg font-semibold mt-2">Armani Wide-Leg Trousers</h3>
-      <p class="text-gray-600">Monochrome elegance. Made with a...</p>
-      <p class="text-lg font-bold">$12.00 <span class="text-gray-500 line-through">$19.99</span></p>
+    <img src={tshort1} alt="Armani Wide-Leg Trousers" className="w-80 rounded-lg"/>
+      <h3 className="text-lg font-semibold mt-2">Armani Wide-Leg Trousers</h3>
+      <p className="text-gray-600">Monochrome elegance. Made with a...</p>
+      <p className="text-lg font-bold">$12.00 <span className="text-gray-500 line-through">$19.99</span></p>
     </div>
     <div>
-    <img src={tshort} alt="Armani Wide-Leg Trousers" class="w-80 rounded-lg"/>
-      <h3 class="text-lg font-semibold mt-2">Armani Wide-Leg Trousers</h3>
-      <p class="text-gray-600">Monochrome elegance. Made with a...</p>
-      <p class="text-lg font-bold">$12.00 <span class="text-gray-500 line-through">$19.99</span></p>
+    <img src={tshort} alt="Armani Wide-Leg Trousers" className="w-80 rounded-lg"/>
+      <h3 className="text-lg font-semibold mt-2">Armani Wide-Leg Trousers</h3>
+      <p className="text-gray-600">Monochrome elegance. Made with a...</p>
+      <p className="text-lg font-bold">$12.00 <span className="text-gray-500 line-through">$19.99</span></p>
     </div>
     <div>
-    <img src={tshort1} alt="Armani Wide-Leg Trousers" class="w-80 rounded-lg"/>
-      <h3 class="text-lg font-semibold mt-2">Armani Wide-Leg Trousers</h3>
-      <p class="text-gray-600">Monochrome elegance. Made with a...</p>
-      <p class="text-lg font-bold">$12.00 <span class="text-gray-500 line-through">$19.99</span></p>
+    <img src={tshort1} alt="Armani Wide-Leg Trousers" className="w-80 rounded-lg"/>
+      <h3 className="text-lg font-semibold mt-2">Armani Wide-Leg Trousers</h3>
+      <p className="text-gray-600">Monochrome elegance. Made with a...</p>
+      <p className="text-lg font-bold">$12.00 <span className="text-gray-500 line-through">$19.99</span></p>
     </div>
     <div>
-    <img src={tshort} alt="Armani Wide-Leg Trousers" class="w-80 rounded-lg"/>
-      <h3 class="text-lg font-semibold mt-2">Armani Wide-Leg Trousers</h3>
-      <p class="text-gray-600">Monochrome elegance. Made with a...</p>
-      <p class="text-lg font-bold">$12.00 <span class="text-gray-500 line-through">$19.99</span></p>
+    <img src={tshort} alt="Armani Wide-Leg Trousers" className="w-80 rounded-lg"/>
+      <h3 className="text-lg font-semibold mt-2">Armani Wide-Leg Trousers</h3>
+      <p className="text-gray-600">Monochrome elegance. Made with a...</p>
+      <p className="text-lg font-bold">$12.00 <span className="text-gray-500 line-through">$19.99</span></p>
     </div>
   </div>
 </div>
