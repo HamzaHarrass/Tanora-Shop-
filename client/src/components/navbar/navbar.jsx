@@ -1,22 +1,23 @@
-import React, { useState } from 'react';  
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';  
+import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from 'react-icons/fa';
 import logo from '../../assets/image/1e2f5cd0-2280-4816-ac4d-ffcbeabeb8c9.png';
 import Cookies from "js-cookie";
 
-function Navbar() {
-  const [cart, setCart] = useState([]); 
-  const [showCart, setShowCart] = useState(false);
+function Navbar({showCart, setShowCart, cart}) {
   const isAuthenticated = !!Cookies.get("token"); 
 
   const toggleCart = () => {
     setShowCart(!showCart);
   };
-
+  const navigate = useNavigate()
   const handleLogout = () => {
     Cookies.remove("token");
     Cookies.remove("role");
+    navigate('/auth/login')
+
   };
+  useEffect (()=>{console.log(cart);},[cart])
 
   return (
     <div>
@@ -30,13 +31,13 @@ function Navbar() {
               <span></span>
             </div>
             <div className="flex grid-cols-2 gap-5">
-              {isAuthenticated && (
+              {isAuthenticated &&  (
                 <button href="#" className="">
                   <div className="relative" onClick={toggleCart}>
                     <FaShoppingCart className="text-black text-2xl cursor-pointer" />
-                    <span className="absolute left-5 bg-red-500 text-white rounded-full px-1 py-0 text-sm">
+                    {cart && <span className="absolute left-5 bg-red-500 text-white rounded-full px-1 py-0 text-sm">
                       {cart.length}
-                    </span>
+                    </span>}
                   </div>
                 </button>
               )}

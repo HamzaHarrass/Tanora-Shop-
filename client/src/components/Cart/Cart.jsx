@@ -20,7 +20,7 @@ const Cart = ({
           <FaTimes className="h-6 w-6" />
         </button>
       </div>
-      {cart.length === 0 ? (
+      {!cart || cart.length === 0 ? (
         <p className="text-center text-gray-600 text-black">Your cart is empty.</p>
       ) : (
         <div>
