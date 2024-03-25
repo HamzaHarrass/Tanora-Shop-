@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import logo from '../../assets/image/1e2f5cd0-2280-4816-ac4d-ffcbeabeb8c9.png'; 
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 axios.defaults.withCredentials = true;
 
 const Produit = () => {

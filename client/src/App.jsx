@@ -11,6 +11,7 @@ import Register from "./components/Auth/Register"
 import Auth from "./components/Auth"
 import AuthRoute from "./components/AuthRoute/AuthRoute"
 import logo from './assets/image/1e2f5cd0-2280-4816-ac4d-ffcbeabeb8c9.png'; 
+import user from './assets/image/LA CASA DEL JS.png'; 
 
 
 
@@ -30,7 +31,7 @@ const DashboardLayout = ()=>{
       </ul>
   </aside>
   <div className='flex-1 flex flex-col'>
-  <nav className="bg-gray-100 border-gray-200 py-2.5 dark:bg-gray-900">
+  <nav className="bg-white-100 border-gray-200 py-2.5 dark:bg-gray-900">
     <div className="flex flex-wrap items-center justify-end max-w-screen-xl px-4 mx-auto">
       <div
       className='flex items-center gap-3'
@@ -39,8 +40,8 @@ const DashboardLayout = ()=>{
         <p className='font-bold'>the user name</p>
         <p className='text-xs '>email@gmail.Com</p>
       </div>
-      <div className='h-8 w-8 bg-blue-500 rounded-full'>
-
+      <div>
+        <img src={user} alt="" srcset="" className='h-16 w-16 bg-blue-500 rounded-full' />
       </div>
     </div>
     </div>

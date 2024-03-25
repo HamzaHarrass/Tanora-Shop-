@@ -6,21 +6,21 @@ const AllOrder = () => {
   const [newStatus, setNewStatus] = useState('');
   const [selectedOrderId, setSelectedOrderId] = useState('');
   const [showPopup, setShowPopup] = useState(false);
- const fetchOrders = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/orders/all');
-        setOrders(response.data.orders);
-      } catch (error) {
-        console.error('Error fetching orders:', error);
-      }
-    };
+  
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/orders/all');
+      setOrders(response.data.orders);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+    }
+  };
+  
   useEffect(() => {
-   
-
     fetchOrders();
   }, []);
 
-  const openPopup = (orderId,status) => {
+  const openPopup = (orderId, status) => {
     setSelectedOrderId(orderId);
     setNewStatus(status);
     setShowPopup(true);
@@ -63,7 +63,7 @@ const AllOrder = () => {
               ))}
             </ul>
             <button
-              onClick={() => openPopup(order._id,order.status)}
+              onClick={() => openPopup(order._id, order.status)}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 w-max ml-auto mt-auto"
             >
               Update Status
