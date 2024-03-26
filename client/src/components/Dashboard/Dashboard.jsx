@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReactPaginate from 'react-paginate';
+
 axios.defaults.withCredentials = true;
 
 const Produit = () => {
@@ -87,95 +89,159 @@ const Produit = () => {
     }
   };
 
-  return (
-    <>
-      
-      <div className="container mx-auto px-8">
-        <h1 className="text-2xl font-bold mt-8 mb-4">Product Management System</h1>
-
-        <div className="product-list flex flex-col">
-          <button onClick={() => setShowAddPopup(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-max ml-auto">
-            Add Product
-          </button> 
-          <div class="flex-auto block py-8 pt-6 px-9">
-          <div class="overflow-x-auto">
-            <table class="w-full my-0 align-middle text-dark border-neutral-200">
-              <thead class="align-bottom">
-                <tr class="font-semibold text-[0.95rem] text-secondary-dark">
-                  <th class="pb-3 text-start min-w-[175px]">Image</th>
-                  <th class="pb-3  ">Name</th>
-                  <th class="pb-3 pr-12 ">Size</th>
-                  <th class="pb-3 pr-12 ">Category</th>
-                  <th class="pb-3 pr-12 ">Color</th>
-                  <th class="pb-3 pr-12 ">Price</th>
-                  <th class="pb-3 ">Events</th>
-                </tr>
-              </thead>
-              <tbody>
-              {products.map((product, index) => (
-                <tr class="border-b border-dashed last:border-b-0">
-                  <td class="p-3 pl-0">
-                    <div class="flex items-center">
-                      <div class="relative inline-block shrink-0 rounded-2xl">
-                        <img src={`http://localhost:3000/uploads/${product.image}`} alt={product.name}  class="w-20 h-30 ml-10 inline-block shrink-0 rounded-2xl"/>
-                      </div>
+  const ProductsTable = ({ products, handleDeleteProduct, setUpdateProduct, setShowUpdatePopup }) => {
+    const [currentPage, setCurrentPage] = useState(0);
+    const productsPerPage = 4;
+  
+    const pageCount = Math.ceil(products.length / productsPerPage);
+  
+    const handlePageClick = ({ selected }) => {
+      setCurrentPage(selected);
+    };
+  
+    const offset = currentPage * productsPerPage;
+    const currentPageData = products.slice(offset, offset + productsPerPage);
+  
+    return (
+      <div className="overflow-x-auto">
+        <table className="w-full my-0 align-middle text-dark border-neutral-200">
+          <thead className="align-bottom">
+            <tr className="font-semibold text-[0.95rem] text-secondary-dark">
+              <th className="pb-3 text-start min-w-[175px]">Image</th>
+              <th className="pb-3">Name</th>
+              <th className="pb-3 pr-12">Size</th>
+              <th className="pb-3 pr-12">Category</th>
+              <th className="pb-3 pr-12">Color</th>
+              <th className="pb-3 pr-12">Price</th>
+              <th className="pb-3">Events</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentPageData.map((product, index) => (
+              <tr key={index} className="border-b border-dashed last:border-b-0">
+                <td className="p-3 pl-0">
+                  <div className="flex items-center">
+                    <div className="relative inline-block shrink-0 rounded-2xl">
+                      <img
+                        src={`http://localhost:3000/uploads/${product.image}`}
+                        alt={product.name}
+                        className="w-20 h-30 ml-10 inline-block shrink-0 rounded-2xl"
+                      />
                     </div>
-                  </td>
-                  <td class="p-3 pr-0 text-centre">
-                    <span class="font-semibold ml-32">{product.name}</span>
-                  </td>
-                  <td class="p-3 pr-0 text-end">
-                    <span class="text-center align-baseline inline-flex px-2 py-1 mr-auto items-center font-semibold text-base/none text-success bg-success-light rounded-lg">
-                     {product.size} </span>
-                  </td>
-                  <td class="p-3 pr-18 text-end">
-                    <span class="text-center align-baseline inline-flex px-4 py-3 mr-auto items-center font-semibold text-[.95rem] leading-none text-primary bg-primary-light rounded-lg">{product.category} </span>
-                  </td>
-                  <td class="p-3 pr-12 text-end">
-                    <span class="text-center align-baseline inline-flex px-4 py-3 mr-auto items-center font-semibold text-[.95rem] leading-none text-primary bg-primary-light rounded-lg">{product.color} </span>
-                  </td>
-                  <td class="pr-0 text-start">
-                    <span class="font-semibold text-light-inverse text-md/normal">{product.prix} DH</span>
-                  </td>
-                  <td class="px-16 py-2">
-              <span class="text-yellow-500 flex">
-              <svg
-                    onClick={() => { setUpdateProduct({ id: product._id, name: product.name, size: product.size, prix: product.prix, image: product.image, category: product.category, color: product.color }); setShowUpdatePopup(true); }}
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-green-700 mx-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                  <path
-                    d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                    clip-rule="evenodd"
-                  />
-              </svg>
-              <svg
+                  </div>
+                </td>
+                <td className="p-3 pr-0 text-centre">
+                  <span className="font-semibold ml-32">{product.name}</span>
+                </td>
+                <td className="p-3 pr-0 text-end">
+                  <span className="text-center align-baseline inline-flex px-2 py-1 mr-auto items-center font-semibold text-base/none text-success bg-success-light rounded-lg">
+                    {product.size}
+                  </span>
+                </td>
+                <td className="p-3 pr-18 text-end">
+                  <span className="text-center align-baseline inline-flex px-4 py-3 mr-auto items-center font-semibold text-[.95rem] leading-none text-primary bg-primary-light rounded-lg">
+                    {product.category}
+                  </span>
+                </td>
+                <td className="p-3 pr-18 text-end">
+                  <span className="text-center align-baseline inline-flex px-4 py-3 mr-auto items-center font-semibold text-[.95rem] leading-none text-primary bg-primary-light rounded-lg">
+                    {product.color}
+                  </span>
+                </td>
+                <td className="p-3 pr-0 text-start">
+                  <span className="font-semibold text-light-inverse text-md/normal">{product.prix} DH</span>
+                </td>
+                <td className="px-16 py-2">
+                  <span className="text-yellow-500 flex">
+                    <svg
+                      onClick={() => {
+                        setUpdateProduct({
+                          id: product._id,
+                          name: product.name,
+                          size: product.size,
+                          prix: product.prix,
+                          image: product.image,
+                          category: product.category,
+                          color: product.color
+                        });
+                        setShowUpdatePopup(true);
+                      }}
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-green-700 mx-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+                      />
+                      <path
+                        fillRule="evenodd"
+                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <svg
                     onClick={() => handleDeleteProduct(product._id)}
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-red-700"
+                    className="h-5 w-5 text-red-700"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
-              <path                               
-                    fill-rule="evenodd"
-                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                    clip-rule="evenodd"
-                  />
-              </svg>
-              </span>
-            </td>
-                </tr>
-                              ))}
-              </tbody>
-            </table>
-          </div>
-        </div> 
+                    <path
+                      fillRule="evenodd"
+                      d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <ReactPaginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination flex justify-end mt-4"}
+          activeClassName={"active"}
+          previousClassName={"cursor-pointer px-3 py-1  text-black font-semibold rounded"}
+          nextClassName={"cursor-pointer px-3 py-1 text-black font-semibold rounded"}
+          pageClassName={"cursor-pointer px-3 py-1  text-gray font-semibold rounded"}
+          breakClassName={"cursor-pointer px-3 py-1 text-gray font-semibold rounded"}
+          previousLinkClassName={"flex items-center"}
+          nextLinkClassName={"flex items-center"}
+          pageLinkClassName={"flex items-center"}
+          breakLinkClassName={"flex items-center"}
+        />
+      </div>
+    );
+  };
+                  
+  
+
+  return (
+    <>
+    <div className="container mx-auto px-8">
+      <h1 className="text-2xl font-bold mt-8 mb-4">Product Management System</h1>
+
+      <div className="product-list flex flex-col">
+        <button onClick={() => setShowAddPopup(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-max ml-auto">
+          Add Product
+        </button> 
+        <div className="flex-auto block py-8 pt-6 px-9">
+          <ProductsTable
+            products={products}
+            handleDeleteProduct={handleDeleteProduct}
+            setUpdateProduct={setUpdateProduct}
+            setShowUpdatePopup={setShowUpdatePopup}
+          />
+        </div>
       </div>
         {/* Add Product Popup */}
         {showAddPopup && (
