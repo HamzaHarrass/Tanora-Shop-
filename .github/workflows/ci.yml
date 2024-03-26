@@ -25,7 +25,7 @@ jobs:
 
       - name: "run tests"
         working-directory: server
-        run: npm run test
+        run: ./node_modules/.bin/jest
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
