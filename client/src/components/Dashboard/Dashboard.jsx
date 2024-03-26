@@ -98,30 +98,48 @@ const Produit = () => {
             Add Product
           </button>
 
-          <table className="w-full border-collapse mt-4">
-            <thead className='bg-gray-700 '>
-              <tr className=''>
-                <td className='py-2 text-center text-white font-bold '>Name</td>
-                <td className='py-2 text-center text-white font-bold '>Size</td>
-                <td className='py-2 text-center text-white font-bold '>Price</td>
-                <td className='py-2 text-center text-white font-bold '>Category</td>
-                <td className='py-2 text-center text-white font-bold '>Color</td>
-                <td className='py-2 text-center text-white font-bold '>Image</td>
-                <td className='py-2 text-center text-white font-bold '>Events</td>
-              </tr>
-            </thead>
-            <tbody>
+          
+          <div class="flex-auto block py-8 pt-6 px-9">
+          <div class="overflow-x-auto">
+            <table class="w-full my-0 align-middle text-dark border-neutral-200">
+              <thead class="align-bottom">
+                <tr class="font-semibold text-[0.95rem] text-secondary-dark">
+                  <th class="pb-3 text-start min-w-[175px]">Image</th>
+                  <th class="pb-3  ">Name</th>
+                  <th class="pb-3 pr-12 ">Size</th>
+                  <th class="pb-3 pr-12 ">Category</th>
+                  <th class="pb-3 pr-12 ">Color</th>
+                  <th class="pb-3 pr-12 ">Price</th>
+                  <th class="pb-3 ">Events</th>
+                </tr>
+              </thead>
+              <tbody>
               {products.map((product, index) => (
-                <tr key={index} className="border border-gray-300 rounded-lg">
-                  <td className="text-center border border-gray-300 px-4 py-2">{product.name}</td>
-                  <td className="text-center border border-gray-300 px-4 py-2">{product.size}</td>
-                  <td className="text-center border border-gray-300 px-4 py-2">{product.prix} DH</td>
-                  <td className="text-center border border-gray-300 px-4 py-2">{product.category}</td>
-                  <td className="text-center border border-gray-300 px-4 py-2">{product.color}</td>
-                  <td className="text-center border border-gray-300 px-4 py-2">
-                    <img src={`http://localhost:3000/uploads/${product.image}`} alt={product.name} className="h-12 w-12 object-cover" />
+                <tr class="border-b border-dashed last:border-b-0">
+                  <td class="p-3 pl-0">
+                    <div class="flex items-center">
+                      <div class="relative inline-block shrink-0 rounded-2xl">
+                        <img src={`http://localhost:3000/uploads/${product.image}`} alt={product.name}  class="w-20 h-30 ml-10 inline-block shrink-0 rounded-2xl"/>
+                      </div>
+                    </div>
                   </td>
-                  <td className="text-center border border-gray-300 px-4 py-2">
+                  <td class="p-3 pr-0 text-centre">
+                    <span class="font-semibold ml-32">{product.name}</span>
+                  </td>
+                  <td class="p-3 pr-0 text-end">
+                    <span class="text-center align-baseline inline-flex px-2 py-1 mr-auto items-center font-semibold text-base/none text-success bg-success-light rounded-lg">
+                     {product.size} </span>
+                  </td>
+                  <td class="p-3 pr-18 text-end">
+                    <span class="text-center align-baseline inline-flex px-4 py-3 mr-auto items-center font-semibold text-[.95rem] leading-none text-primary bg-primary-light rounded-lg">{product.category} </span>
+                  </td>
+                  <td class="p-3 pr-12 text-end">
+                    <span class="text-center align-baseline inline-flex px-4 py-3 mr-auto items-center font-semibold text-[.95rem] leading-none text-primary bg-primary-light rounded-lg">{product.color} </span>
+                  </td>
+                  <td class="pr-0 text-start">
+                    <span class="font-semibold text-light-inverse text-md/normal">{product.prix} DH</span>
+                  </td>
+                  <td className="text-center  px-4 py-2">
                     <button onClick={() => { setUpdateProduct({ id: product._id, name: product.name, size: product.size, prix: product.prix, image: product.image, category: product.category, color: product.color }); setShowUpdatePopup(true); }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2">
                       Update
                     </button>
@@ -130,11 +148,12 @@ const Produit = () => {
                     </button>
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
+                              ))}
+              </tbody>
+            </table>
+          </div>
+        </div> 
+      </div>
         {/* Add Product Popup */}
         {showAddPopup && (
           <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
