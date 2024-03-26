@@ -1,5 +1,4 @@
 const request = require('supertest');
-// const app = require('./Controllers/AuthontificationControle'); 
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -69,3 +68,84 @@ describe('Register Endpoint', () => {
   });
 
 });
+
+
+describe('Login Endpoint', () => {
+    it('should verify fields', async () => {
+      const userData = {};
+  
+      const res = await request(app)
+        .post('/auth/login')
+        .send(userData);
+  
+      expect(res.statusCode).toEqual(422);
+      expect(res.body).toHaveProperty("errors");
+      expect(Array.isArray(res.body.errors)).toBeTruthy();
+    });
+  
+    it('should return "User not found" for non-existing user', async () => {
+      const userData = {
+        email: 'nonexistinguser@example.com',
+        password: 'password123'
+      };
+  
+      mockedUser.findOne = jest.fn().mockResolvedValue(null);
+  
+      const res = await request(app)
+        .post('/auth/login')
+        .send(userData);
+  
+      expect(res.statusCode).toEqual(401);
+      expect(res.body).toHaveProperty("message");
+      expect(res.body.message).toBe('User not found');
+    });
+  
+    it('should return "Invalid password" for incorrect password', async () => {
+      const userData = {
+        email: 'existinguser@example.com',
+        password: 'incorrectpassword'
+      };
+  
+      mockedUser.findOne = jest.fn().mockResolvedValue({
+        _id: '12345abc',
+        email: 'existinguser@example.com',
+        password: await bcrypt.hash('correctpassword', 10) // Ensure to hash the correct password
+      });
+  
+      const res = await request(app)
+        .post('/auth/login')
+        .send(userData);
+  
+      expect(res.statusCode).toEqual(401);
+      expect(res.body).toHaveProperty("message");
+      expect(res.body.message).toBe('Invalid password');
+    });
+  
+    it('should login existing user and return access and refresh tokens', async () => {
+      const userData = {
+        email: 'existinguser@example.com',
+        password: 'correctpassword'
+      };
+  
+      const hashedPassword = await bcrypt.hash('correctpassword', 10); 
+
+      mockedUser.findOne = jest.fn().mockResolvedValue({
+        _id: '12345abc',
+        email: 'existinguser@example.com',
+        password: hashedPassword
+      });
+      bcrypt.compare= jest.fn().mockResolvedValue(true)
+  
+      jwt.sign = jest.fn().mockResolvedValue('token')
+  
+      const res = await request(app)
+        .post('/auth/login')
+        .send(userData);
+  
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toHaveProperty('user');
+      expect(res.body.user._id).toBe('12345abc');
+      expect(res.body.user.email).toBe('existinguser@example.com');
+    });
+  });
+  
