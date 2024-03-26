@@ -96,9 +96,7 @@ const Produit = () => {
         <div className="product-list flex flex-col">
           <button onClick={() => setShowAddPopup(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-max ml-auto">
             Add Product
-          </button>
-
-          
+          </button> 
           <div class="flex-auto block py-8 pt-6 px-9">
           <div class="overflow-x-auto">
             <table class="w-full my-0 align-middle text-dark border-neutral-200">
