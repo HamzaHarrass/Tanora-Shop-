@@ -167,7 +167,7 @@ const Produit = () => {
                         setShowUpdatePopup(true);
                       }}
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 text-green-700 mx-2"
+                      className="h-5 w-5 text-green-700 mx-2 cursor-pointer"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -184,7 +184,7 @@ const Produit = () => {
                   <svg
                     onClick={() => handleDeleteProduct(product._id)}
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-red-700"
+                    className="h-5 w-5 text-red-700 cursor-pointer"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -304,11 +304,12 @@ const Produit = () => {
             <div className="bg-white rounded-lg p-8 max-w-md w-full">
               <h3 className="text-lg font-semibold mb-4">Update Product</h3>
               <form encType="multipart/form-data">
-                <div>
+                <div className='flex flex-col py-1 gap-1'>
                 <label htmlFor="name">Name:</label>
                 <input type="text" id="name" value={updateProduct.name} onChange={(e) => setUpdateProduct({ ...updateProduct, name: e.target.value })} className="border border-gray-300 py-2  px-3 py-1 mb-2 rounded" />
                 </div>
-                <div><label htmlFor="size">Size:</label>
+                <div className='flex flex-col py-1 gap-1'>
+                <label htmlFor="size">Size:</label>
                 <select type="text" id="size" value={updateProduct.size} onChange={(e) => setUpdateProduct({ ...updateProduct, size: e.target.value })} className="border border-gray-300 py-2  px-3 py-1 mb-2 rounded" >
                 <option value="s">s</option>
                 <option value="m">m</option>
@@ -317,10 +318,11 @@ const Produit = () => {
                 <option value="xxl">xxl</option>
                 </select>
                 </div>
-                <div><label htmlFor="prix">Price:</label>
+                <div className='flex flex-col py-1 gap-1'>
+                <label htmlFor="prix">Price:</label>
                 <input type="text" id="prix" value={updateProduct.prix} onChange={(e) => setUpdateProduct({ ...updateProduct, prix: e.target.value })} className="border border-gray-300 py-2 px-3 py-1 mb-2 rounded" />
                 </div>
-                <div>
+                <div className='flex flex-col py-1 gap-1'>
                 <label htmlFor="category">Category:</label>
                 <select type="text" id="category" value={updateProduct.category} onChange={(e) => setUpdateProduct({ ...updateProduct, category: e.target.value })} className="border border-gray-300 py-2 px-3 py-1 mb-2 rounded">
                   <option value="t-shirt">t-shirt</option>
@@ -329,13 +331,15 @@ const Produit = () => {
                   <option value="sweat">sweat</option>
                 </select>
                 </div>
-                <div><label htmlFor="color">Color:</label>
+                <div className='flex flex-col py-1 gap-1'>
+                <label htmlFor="color">Color:</label>
                 <input type="text" id="color" value={updateProduct.color} onChange={(e) => setUpdateProduct({ ...updateProduct, color: e.target.value })} className="border border-gray-300 py-2 px-3 py-1 mb-2 rounded" />
                 </div>
-                <div><label htmlFor="image">Image:</label>
+                <div className='flex flex-col py-1 gap-1'>
+                <label htmlFor="image">Image:</label>
                 <input type="file" id="image" onChange={(e) => setUpdateProduct({ ...updateProduct, image: e.target.files[0] })} className="border border-gray-300 py-2 px-3 py-1 mb-2 rounded" />
                 </div>
-                <div className="flex justify-end">
+                <div className="flex justify-end pt-4">
                   <button type="button" onClick={handleUpdateProduct} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
                     Update Product
                   </button>
