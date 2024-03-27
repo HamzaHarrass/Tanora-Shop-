@@ -56,14 +56,14 @@ function App() {
     <React.StrictMode>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/produit" element={<AllProduit />} />
+          <Route path="/" element={<Index element={<Index />} roles={["user"]}/>} />
+          <Route path="/produit" element={<AllProduit element={<AllProduit />} roles={["user"]}/>} />
           <Route path="/dashboard" element={<DashboardLayout/>}>
             <Route path="/dashboard" element={<AuthRoute element={<Dashboard />} roles={["admin"]} />}/>
             <Route path="/dashboard/allorder" element={<AuthRoute element={<AllOrder />} roles={["admin"]} />} />
           </Route>
           <Route path="/order" element={<AuthRoute element={<Order />} roles={["user"]} />} />
-          <Route path="/design" element={<Design />} />
+          <Route path="/design" element={<Design element={<Design />} roles={["user"]} />} />
           <Route path="/auth" element={<Auth />}>
             <Route path="/auth/register" element={<Register />} />
             <Route path="/auth/login" element={<Login />} />
