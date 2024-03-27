@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import Cookies from "js-cookie";
 import Navbar from '../navbar/navbar';
 import Footer from '../Footer/footer';
 import Cart from '../Cart/Cart';
@@ -8,6 +10,13 @@ const AllProduit = () => {
   const [produits, setProduits] = useState([]);
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const isAuthenticated = !!Cookies.get("token"); 
+  const navigate = useNavigate()
+
+  const handleLoginClick = () => {
+    navigate('/auth/login')
+  };
 
   useEffect(() => {
     const fetchProduits = async () => {
@@ -42,12 +51,15 @@ const AllProduit = () => {
       const { _id: produitId, prix, name, size, image } = produit;
       const quantity = 1;
   
+      if (!isAuthenticated) {
+        setShowAlert(true); 
+      }
+
       const response = await axios.post('http://localhost:3000/carts/', {
         produitId,
         quantity,
       });
-      console.log(response.data);
-  
+      
       setCart(response.data.produits);
       console.log(cart);
     } catch (error) {
@@ -157,6 +169,29 @@ const AllProduit = () => {
       </div>
       
       <Footer/>
+          {/* Affichage de l'alerte */}
+          {showAlert && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-8 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold mb-4">Login Required</h2>
+            <p className="mb-4">You need to login to add items to cart.</p>
+            <div className="flex justify-end">
+              <button
+                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2"
+                onClick={() => setShowAlert(false)} 
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleLoginClick} 
+              >
+                Login
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
