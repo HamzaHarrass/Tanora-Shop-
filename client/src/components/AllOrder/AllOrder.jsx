@@ -45,8 +45,8 @@ const AllOrder = () => {
       <h1 className="text-2xl font-bold mb-4">All Orders</h1>
       <ul className='flex gap-4 flex-wrap'>
         {orders.map((order) => (
-          <li key={order._id} className="rounded p-4 mb-4 flex-1 bg-green-100 shadow-lg relative flex flex-col gap-3" style={{minWidth:'400px', maxWidth:'440px'}}>
-            <div className='absolute top-4 right-8 bg-blue-500 text-white rounded-lg py-1 px-3'> {order.status}</div>
+          <li key={order._id} className="rounded-lg p-4 mb-4 flex-1 bg-green-200 shadow-lg relative flex flex-col gap-3" style={{minWidth:'400px', maxWidth:'440px'}}>
+            <div className='absolute top-4 right-8 bg-red-400 text-white rounded-lg py-1 px-3'> {order.status}</div>
             <h3 className="text-xl font-bold" style={{maxWidth:'25ch', textOverflow: 'ellipsis' , overflow:'hidden', whiteSpace: 'nowrap'}}>Order ID: {order._id}</h3>
             <p className="text-gray-600">
               by: {order.user ? order.user.nom : 'Unknown User'}
@@ -73,8 +73,8 @@ const AllOrder = () => {
       </ul>
 
       {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
-          <div className="bg-white p-8 rounded shadow-lg max-w-md">
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
+          <div className="bg-white rounded-lg p-8 max-w-md w-full">
             <h2 className="text-lg font-semibold mb-4">Update Order Status</h2>
             <select
               className="block w-full p-2 border border-gray-300 rounded mb-4"

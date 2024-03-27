@@ -10,7 +10,7 @@ import Login from "./components/Auth/Login"
 import Register from "./components/Auth/Register"
 import Auth from "./components/Auth"
 import AuthRoute from "./components/AuthRoute/AuthRoute"
-import logo from './assets/image/1e2f5cd0-2280-4816-ac4d-ffcbeabeb8c9.png'; 
+import logo from './assets/image/logo.png'; 
 import user from './assets/image/LA CASA DEL JS.png'; 
 
 
@@ -19,7 +19,7 @@ const DashboardLayout = ()=>{
   return <main className='flex'>
   <aside className='p-8 shadow-sm  border-r flex flex-col' style={{width:'240px', minHeight: '100vh'}}>
       <a href="#" className="flex items-center w-full flex justify-center">
-        <img src={logo} className="h-12 mr-3" alt="mochtara Logo"/>
+        <img src={logo} className="h-22 mr-3 w-22 " alt="Tanora Logo"/>
       </a>
       <ul className='py-12 flex flex-col gap-2'>
         <Link to={'/dashboard'} className='py-2 px-12 w-full bg-gray-100 rounded-lg hover:bg-blue-500 hover:text-white transition-all'>
