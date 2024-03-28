@@ -84,4 +84,14 @@ const logout = (req, res) => {
   return res.status(200).json({ message: 'Logged out' });
 };
 
-module.exports = { login, logout, register };
+const UserCount = async (req, res) => {
+  try {
+    const userCount = await User.countDocuments({ role: 'user' });
+    res.status(200).json({ userCount });
+  } catch (error) {
+    console.error('Error getting user count:', error);
+    res.status(500).json({ message: 'Error counting users' });
+  }
+};
+
+module.exports = { login, logout, register, UserCount };
