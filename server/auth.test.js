@@ -148,4 +148,29 @@ describe('Login Endpoint', () => {
       expect(res.body.user.email).toBe('existinguser@example.com');
     });
   });
+
+  describe('UserCount Endpoint', () => {
+    it('should return the count of users with role "user"', async () => {
+      const userCountData = 5; 
+  
+      User.countDocuments = jest.fn().mockResolvedValue(userCountData);
+  
+      const res = await request(app)
+        .get('/auth/users/count'); 
+  
+      expect(res.status).toEqual(200);
+      expect(res.body).toHaveProperty('userCount', userCountData);
+    });
+  
+    it('should handle errors when getting user count', async () => {
+      User.countDocuments = jest.fn().mockRejectedValue(new Error('Database error'));
+  
+      const res = await request(app)
+        .get('/auth/users/count'); 
+  
+      expect(res.status).toEqual(500);
+      expect(res.body).toHaveProperty('message', 'Error counting users');
+    });
+  });
+  
   
