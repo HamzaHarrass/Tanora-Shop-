@@ -16,6 +16,7 @@ import user from './assets/image/LA CASA DEL JS.png';
 
 
 const DashboardLayout = ()=>{
+  const currentUser = JSON.parse(localStorage.getItem('user'))
   return <main className='flex'>
   <aside className='p-8 shadow-sm  border-r flex flex-col' style={{width:'240px', minHeight: '100vh'}}>
       <a href="#" className="flex items-center w-full flex justify-center">
@@ -36,10 +37,10 @@ const DashboardLayout = ()=>{
       <div
       className='flex items-center gap-3'
     >
-      <div >
-        <p className='font-bold'>the user name</p>
-        <p className='text-xs '>email@gmail.Com</p>
-      </div>
+      {currentUser && <div >
+        <p className='font-bold'>{currentUser.nom+" "+currentUser.prenom}</p>
+        <p className='text-xs '>{currentUser.email}</p>
+      </div>}
       <div>
         <img src={user} alt="" srcset="" className='h-16 w-16 bg-blue-500 rounded-full' />
       </div>

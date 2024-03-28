@@ -33,7 +33,7 @@ const Login = () => {
       const response = await axios.post('http://localhost:3000/auth/login', formData);
       console.log(response);
       Cookies.set('token', response.data.access_token, { expires: 7 }); 
-
+      localStorage.setItem('user',JSON.stringify(response.data.user))
       const isAdmin = response.data.user.role === 'admin';
       Cookies.set('role', isAdmin ? 'admin' : 'user');
 
