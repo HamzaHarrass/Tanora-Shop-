@@ -8,6 +8,8 @@ router.post('/confirm',verifyToken, OrderController.confirmOrder);
 
 router.get('/', verifyToken, OrderController.getOrder);
 
+router.get('/order/count', OrderController.OrderCount);
+
 router.get('/all' ,  verifyToken, isAdmin, OrderController.allOrder)
 
 router.patch('/:id' , verifyToken, isAdmin, OrderController.updateOrder);

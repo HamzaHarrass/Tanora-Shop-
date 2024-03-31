@@ -35,7 +35,7 @@ const AllProduit = () => {
       } catch (error) {
         if (error.response && error.response.status === 404) {
           console.log("User's cart not found.");
-          setCart([]); // Set an empty cart array if not found
+          setCart([]); 
         } else {
           console.error("Error fetching user's cart:", error.response);
         }
@@ -169,7 +169,6 @@ const AllProduit = () => {
       </div>
       
       <Footer/>
-          {/* Affichage de l'alerte */}
           {showAlert && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded-lg shadow-md">

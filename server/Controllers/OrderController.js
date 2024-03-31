@@ -61,5 +61,14 @@ const getOrder = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
+  const  OrderCount = async (req, res) => {
+    try {
+      const orderCount = await Order.countDocuments();
+      res.status(200).json({ orderCount }); 
+    } catch (error) {
+      console.error('Error getting order count', error);
+      res.status(500).json({ message: 'Error counting orders' });
+    }
+  };
 
-module.exports = { confirmOrder , getOrder , allOrder , updateOrder };
+module.exports = { confirmOrder , getOrder , allOrder , updateOrder , OrderCount};
